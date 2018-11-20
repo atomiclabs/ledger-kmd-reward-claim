@@ -9,6 +9,9 @@ const walkDerivationPath = async ({account, isChange}) => {
 
   const ledger = await getLedger();
 
+  // TODO: Don't request all pubkeys from Ledger, request xpub and derive keys on host
+  // https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
+  // https://github.com/LedgerHQ/ledgerjs/issues/114#issuecomment-372567048
   while (consecutiveUnusedAddresses < gapLimit) {
     const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
     const pubKey = await ledger.getWalletPublicKey(derivationPath);
