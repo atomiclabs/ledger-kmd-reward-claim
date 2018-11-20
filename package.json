@@ -1,27 +1,27 @@
 {
   "name": "ledger-kmd-rewards",
-  "version": "0.1.0",
+  "version": "0.0.0",
+  "description": "Claim Komodo Active User Reward with Ledger Hardware Wallets",
   "private": true,
+  "repository": "atomiclabs/ledger-kmd-rewards/",
+  "author": "Luke Childs <lukechilds123@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development parcel src/index.html --https",
+    "build": "cross-env NODE_ENV=production parcel build src/index.html --public-url / --no-cache"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "cross-env": "^5.2.0",
+    "parcel-bundler": "^1.10.3"
+  },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "@ledgerhq/hw-app-btc": "^4.30.0",
     "@ledgerhq/hw-transport-u2f": "^4.28.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-scripts": "2.1.1"
-  },
-  "scripts": {
-    "start": "HTTPS=true react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+    "react-hot-loader": "^4.3.12"
+  }
 }
