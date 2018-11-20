@@ -22,6 +22,8 @@ class App extends React.Component {
 
   render() {
     const {addresses, scanning} = this.state;
+    const accounts = [...new Set(addresses.map(address => address.account))].sort((a, b) => a - b);
+
     return (
       <div className="App">
         <button onClick={() => this.scanAddresses()}>
@@ -30,8 +32,13 @@ class App extends React.Component {
         <div>
           {scanning && 'Scanning...'}
         </div>
-        {addresses.map(address => (
-          <pre key={address.addrStr}>{JSON.stringify(address)}</pre>
+        {accounts.map(account => (
+          <React.Fragment key={account}>
+            <h2>Account {account + 1}</h2>
+            {addresses.filter(address => address.account === account).map(address => (
+              <pre key={address.addrStr}>{JSON.stringify(address)}</pre>
+            ))}
+          </React.Fragment>
         ))}
       </div>
     );
