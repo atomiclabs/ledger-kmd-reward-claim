@@ -1,4 +1,5 @@
 import React from 'react';
+import {hot} from 'react-hot-loader';
 import accountDiscovery from './lib/account-discovery';
 import './App.css';
 
@@ -37,4 +38,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default hot(module)(App);
