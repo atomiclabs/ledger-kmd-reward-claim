@@ -11,10 +11,11 @@ const accountDiscovery = async () => {
   const ledger = await getLedger();
 
   while (consecutiveUnusedAddresses < gapLimit) {
-    const pubKey = await ledger.getWalletPublicKey(`44'/141'/0'/0/${currentAddress}`);
+    const derivationPath = `44'/141'/0'/0/${currentAddress}`;
+    const pubKey = await ledger.getWalletPublicKey(derivationPath);
     const address = await (await fetch(`${insightUrl}/addr/${pubKey.bitcoinAddress}/?noTxList=1`)).json();
 
-    addresses.push(address);
+    addresses.push({derivationPath, ...address});
 
     if(address.totalReceived > 0 || address.unconfirmedBalance > 0) {
       consecutiveUnusedAddresses = 0;
