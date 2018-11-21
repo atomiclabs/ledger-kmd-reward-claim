@@ -50,9 +50,15 @@ const accountDiscovery = async () => {
     }
 
     let accountUtxos = await (await fetch(`${insightUrl}/addrs/${accountAddresses.map(a => a.address).join()}/utxo`)).json();
-    accountUtxos = accountUtxos.map(utxo => {
-      return {...accountAddresses.find(a => a.address === utxo.address), ...utxo};
-    });
+    accountUtxos = await Promise.all(accountUtxos.map(async utxo => {
+      const addressInfo = accountAddresses.find(a => a.address === utxo.address);
+      const tx = await (await fetch(`${insightUrl}/tx/${utxo.txid}`)).json();
+      return {
+        ...addressInfo,
+        ...utxo,
+        tx
+      };
+    }));
     utxos = [...utxos, ...accountUtxos];
 
     account++;
