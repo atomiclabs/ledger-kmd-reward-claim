@@ -1,6 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import accountDiscovery from './lib/account-discovery';
+import Account from './Account';
 import './App.css';
 
 class App extends React.Component {
@@ -36,12 +37,11 @@ class App extends React.Component {
           {scanning && 'Scanning...'}
         </div>
         {accounts.map(account => (
-          <React.Fragment key={account}>
-            <h2>Account {account + 1}</h2>
-            {utxos.filter(utxo => utxo.account === account).map(utxo => (
-              <pre key={JSON.stringify(utxo)}>{JSON.stringify(utxo, null, 2)}</pre>
-            ))}
-          </React.Fragment>
+          <Account
+            key={account}
+            account={account}
+            utxos={utxos.filter(utxo => utxo.account === account)}
+            />
         ))}
       </div>
     );
