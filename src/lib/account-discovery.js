@@ -1,6 +1,5 @@
 import getLedger from './get-ledger';
-
-const insightUrl = 'https://kmdexplorer.io/insight-api-komodo';
+import blockchain from './blockchain';
 
 const walkDerivationPath = async ({account, isChange}) => {
   const addresses = [];
@@ -16,7 +15,7 @@ const walkDerivationPath = async ({account, isChange}) => {
   while (consecutiveUnusedAddresses < gapLimit) {
     const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
     const pubKey = await ledger.getWalletPublicKey(derivationPath);
-    const address = await (await fetch(`${insightUrl}/addr/${pubKey.bitcoinAddress}/?noTxList=1`)).json();
+    const address = await blockchain.getAddress(pubKey.bitcoinAddress);
 
     addresses.push({address: address.addrStr, account, isChange, addressIndex, derivationPath});
 
@@ -49,10 +48,10 @@ const accountDiscovery = async () => {
       break;
     }
 
-    let accountUtxos = await (await fetch(`${insightUrl}/addrs/${accountAddresses.map(a => a.address).join()}/utxo`)).json();
+    let accountUtxos = await blockchain.getUtxos(accountAddresses.map(a => a.address));
     accountUtxos = await Promise.all(accountUtxos.map(async utxo => {
       const addressInfo = accountAddresses.find(a => a.address === utxo.address);
-      const tx = await (await fetch(`${insightUrl}/tx/${utxo.txid}`)).json();
+      const tx = await blockchain.getTransaction(utxo.txid);
       return {
         ...addressInfo,
         ...utxo,
