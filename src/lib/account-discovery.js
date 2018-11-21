@@ -1,7 +1,8 @@
 import getLedger from './get-ledger';
 
+const insightUrl = 'https://kmdexplorer.io/insight-api-komodo';
+
 const walkDerivationPath = async ({account, isChange}) => {
-  const insightUrl = 'https://kmdexplorer.io/insight-api-komodo';
   const addresses = [];
   const gapLimit = 20;
   let consecutiveUnusedAddresses = 0;
@@ -17,7 +18,7 @@ const walkDerivationPath = async ({account, isChange}) => {
     const pubKey = await ledger.getWalletPublicKey(derivationPath);
     const address = await (await fetch(`${insightUrl}/addr/${pubKey.bitcoinAddress}/?noTxList=1`)).json();
 
-    addresses.push({account, isChange, addressIndex, derivationPath, ...address});
+    addresses.push({address: address.addrStr, account, isChange, addressIndex, derivationPath});
 
     if (address.totalReceived > 0 || address.unconfirmedBalance > 0) {
       consecutiveUnusedAddresses = 0;
@@ -39,7 +40,7 @@ const getAccountAddresses = async account => [
 ];
 
 const accountDiscovery = async () => {
-  let addresses = [];
+  let utxos = [];
   let account = 0;
 
   while (true) {
@@ -47,11 +48,17 @@ const accountDiscovery = async () => {
     if (accountAddresses.length === 0) {
       break;
     }
-    addresses = [...addresses, ...accountAddresses];
+
+    let accountUtxos = await (await fetch(`${insightUrl}/addrs/${accountAddresses.map(a => a.address).join()}/utxo`)).json();
+    accountUtxos = accountUtxos.map(utxo => {
+      return {...accountAddresses.find(a => a.address === utxo.address), ...utxo};
+    });
+    utxos = [...utxos, ...accountUtxos];
+
     account++;
   }
 
-  return addresses;
+  return utxos;
 };
 
 export default accountDiscovery;

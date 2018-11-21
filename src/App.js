@@ -6,23 +6,23 @@ import './App.css';
 class App extends React.Component {
   state = {
     scanning: false,
-    addresses: []
+    utxos: []
   };
 
   scanAddresses = async () => {
     this.setState({scanning: true});
 
-    const addresses = await accountDiscovery();
+    const utxos = await accountDiscovery();
 
     this.setState({
       scanning: false,
-      addresses
+      utxos
     });
   };
 
   render() {
-    const {addresses, scanning} = this.state;
-    const accounts = [...new Set(addresses.map(address => address.account))].sort((a, b) => a - b);
+    const {utxos, scanning} = this.state;
+    const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
     return (
       <div className="App">
@@ -35,8 +35,8 @@ class App extends React.Component {
         {accounts.map(account => (
           <React.Fragment key={account}>
             <h2>Account {account + 1}</h2>
-            {addresses.filter(address => address.account === account).map(address => (
-              <pre key={address.addrStr}>{JSON.stringify(address)}</pre>
+            {utxos.filter(utxo => utxo.account === account).map(utxo => (
+              <pre key={JSON.stringify(utxo)}>{JSON.stringify(utxo)}</pre>
             ))}
           </React.Fragment>
         ))}
