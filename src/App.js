@@ -39,7 +39,7 @@ class App extends React.Component {
           <React.Fragment key={account}>
             <h2>Account {account + 1}</h2>
             {utxos.filter(utxo => utxo.account === account).map(utxo => (
-              <pre key={JSON.stringify(utxo)}>{JSON.stringify(utxo)}</pre>
+              <pre key={JSON.stringify(utxo)}>{JSON.stringify(utxo, null, 2)}</pre>
             ))}
           </React.Fragment>
         ))}
