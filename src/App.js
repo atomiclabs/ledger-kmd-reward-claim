@@ -10,7 +10,10 @@ class App extends React.Component {
   };
 
   scanAddresses = async () => {
-    this.setState({scanning: true});
+    this.setState({
+      scanning: true,
+      utxos: []
+    });
 
     const utxos = await accountDiscovery();
 
