@@ -9,7 +9,7 @@ const Account = ({account, utxos}) => {
       <h2>Account {account + 1}: {toBitcoin(balance)} KMD</h2>
       {utxos.map(utxo => (
         <div key={utxo.id} className="UTXO">
-          {utxo.address} {toBitcoin(utxo.satoshis)} {utxo.tx.locktime}
+          {utxo.address} {toBitcoin(utxo.satoshis)} {utxo.locktime}
           <pre key={JSON.stringify(utxo)}>{JSON.stringify(utxo, null, 2)}</pre>
         </div>
       ))}

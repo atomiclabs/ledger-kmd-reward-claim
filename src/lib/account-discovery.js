@@ -1,5 +1,6 @@
 import getLedger from './get-ledger';
 import blockchain from './blockchain';
+import bitcoin from 'bitcoinjs-lib';
 
 const walkDerivationPath = async ({account, isChange}) => {
   const addresses = [];
@@ -48,18 +49,21 @@ const accountDiscovery = async () => {
       break;
     }
 
-    let accountUtxos = await blockchain.getUtxos(accountAddresses.map(a => a.address));
-    accountUtxos = await Promise.all(accountUtxos.map(async utxo => {
+    const accountUtxos = await blockchain.getUtxos(accountAddresses.map(a => a.address));
+    const accountUtxosFormatted = await Promise.all(accountUtxos.map(async utxo => {
       const addressInfo = accountAddresses.find(a => a.address === utxo.address);
-      const tx = await blockchain.getTransaction(utxo.txid);
+      const {rawtx} = await blockchain.getRawTransaction(utxo.txid);
+      const {locktime} = bitcoin.Transaction.fromHex(rawtx);
+
       return {
         id: `${utxo.txid}:${utxo.vout}`,
         ...addressInfo,
         ...utxo,
-        tx
+        locktime,
+        rawtx
       };
     }));
-    utxos = [...utxos, ...accountUtxos];
+    utxos = [...utxos, ...accountUtxosFormatted];
 
     account++;
   }
