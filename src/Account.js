@@ -1,11 +1,12 @@
 import React from 'react';
+import {toBitcoin} from 'satoshi-bitcoin';
 
 const Account = ({account, utxos}) => {
-  const balance = utxos.reduce((balance, utxo) => balance + utxo.amount, 0);
+  const balance = utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);
 
   return (
     <div className="Account">
-      <h2>Account {account + 1}: {balance} KMD</h2>
+      <h2>Account {account + 1}: {toBitcoin(balance)} KMD</h2>
       {utxos.map(utxo => (
         <pre key={JSON.stringify(utxo)}>{JSON.stringify(utxo, null, 2)}</pre>
       ))}

@@ -23,7 +23,8 @@
     "@ledgerhq/hw-app-btc": "^4.30.0",
     "@ledgerhq/hw-transport-u2f": "^4.28.0",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "satoshi-bitcoin": "^1.0.4"
   },
   "devDependencies": {
     "react-app-rewire-hot-loader": "^1.0.3",
