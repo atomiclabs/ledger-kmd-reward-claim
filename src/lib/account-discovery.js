@@ -53,6 +53,7 @@ const accountDiscovery = async () => {
       const addressInfo = accountAddresses.find(a => a.address === utxo.address);
       const tx = await blockchain.getTransaction(utxo.txid);
       return {
+        id: `${utxo.txid}:${utxo.vout}`,
         ...addressInfo,
         ...utxo,
         tx
