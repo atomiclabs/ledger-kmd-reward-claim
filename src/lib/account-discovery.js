@@ -4,7 +4,8 @@ import bitcoin from 'bitcoinjs-lib';
 
 const walkDerivationPath = async ({account, isChange}) => {
   const addresses = [];
-  const gapLimit = 20;
+  // const gapLimit = 20; Should be 20 for prod, 1 for dev
+  const gapLimit = 1;
   let consecutiveUnusedAddresses = 0;
   let addressIndex = 0;
 
