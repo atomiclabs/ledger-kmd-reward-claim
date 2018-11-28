@@ -34,7 +34,7 @@ const getKomodoRewards = (locktime, height, satoshis) => {
 
   // Ensure reward value is never negative
   if (rewards < 0) {
-    return 0;
+    throw new Error('Reward should never be negative');
   }
 
   return rewards;
