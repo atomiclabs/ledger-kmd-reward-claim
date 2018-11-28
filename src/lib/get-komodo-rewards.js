@@ -5,7 +5,7 @@ const ONE_MONTH_CAP_HARDFORK = 1000000;
 const ONE_HOUR = 60;
 const ONE_MONTH = 31 * 24 * 60;
 const ONE_YEAR = 365 * 24 * 60;
-const MAGIC_NUMBER = 10512000;
+const DEVISOR = 10512000;
 
 const getKomodoRewards = (locktime, height, satoshis) => {
   // Calculate coinage
@@ -30,7 +30,7 @@ const getKomodoRewards = (locktime, height, satoshis) => {
   rewardPeriod -= 59;
 
   // Calculate rewards
-  const rewards = Math.floor(satoshis / MAGIC_NUMBER) * rewardPeriod;
+  const rewards = Math.floor(satoshis / DEVISOR) * rewardPeriod;
 
   // Ensure reward value is never negative
   if (rewards < 0) {
