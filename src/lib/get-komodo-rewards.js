@@ -7,10 +7,9 @@ const ONE_MONTH = 31 * 24 * 60;
 const ONE_YEAR = 365 * 24 * 60;
 const DEVISOR = 10512000;
 
-const getKomodoRewards = (locktime, height, satoshis) => {
+const getKomodoRewards = ({tiptime, locktime, height, satoshis}) => {
   // Calculate coinage
-  const unixtime = Math.floor(Date.now() / 1000);
-  const coinage = Math.floor((unixtime - locktime) / ONE_HOUR);
+  const coinage = Math.floor((tiptime - locktime) / ONE_HOUR);
 
   // Return early if UTXO is not eligible for rewards
   if (

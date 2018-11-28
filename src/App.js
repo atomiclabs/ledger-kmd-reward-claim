@@ -46,6 +46,7 @@ class App extends React.Component {
           <Account
             key={account}
             account={account}
+            tiptime={tiptime}
             utxos={utxos.filter(utxo => utxo.account === account)}
             />
         ))}
