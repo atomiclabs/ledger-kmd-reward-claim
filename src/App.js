@@ -1,31 +1,36 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import accountDiscovery from './lib/account-discovery';
+import blockchain from './lib/blockchain';
 import Account from './Account';
 import './App.css';
 
 class App extends React.Component {
   state = {
     scanning: false,
-    utxos: []
+    utxos: [],
+    tiptime: null
   };
 
   scanAddresses = async () => {
     this.setState({
       scanning: true,
-      utxos: []
+      utxos: [],
+      tiptime: null
     });
 
     const utxos = await accountDiscovery();
+    const tiptime = await blockchain.getTipTime();
 
     this.setState({
       scanning: false,
-      utxos
+      utxos,
+      tiptime
     });
   };
 
   render() {
-    const {utxos, scanning} = this.state;
+    const {utxos, tiptime, scanning} = this.state;
     const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
     return (
@@ -35,6 +40,7 @@ class App extends React.Component {
         </button>
         <div>
           {scanning && 'Scanning...'}
+          {tiptime}
         </div>
         {accounts.map(account => (
           <Account
