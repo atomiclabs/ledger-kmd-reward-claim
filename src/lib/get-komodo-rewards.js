@@ -26,7 +26,7 @@ const getKomodoRewards = (locktime, height, satoshis) => {
   const limit = (height >= ONE_MONTH_CAP_HARDFORK) ? ONE_MONTH : ONE_YEAR;
   let rewardPeriod = Math.min(coinage, limit);
 
-  // Remove 59 minutes from reward period
+  // The first hour of coinage should not accrue rewards
   rewardPeriod -= 59;
 
   // Calculate rewards
