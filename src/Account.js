@@ -12,7 +12,8 @@ const Account = ({account, utxos}) => {
           <h3>{utxo.address}</h3>
           <strong>Balance</strong> {toBitcoin(utxo.satoshis)}<br />
           <strong>Locktime</strong> {utxo.locktime}<br />
-          <pre>{JSON.stringify(utxo)}</pre>
+          <strong>Rewards</strong> {toBitcoin(utxo.rewards)}<br />
+          <pre>{JSON.stringify(utxo )}</pre>
         </div>
       ))}
     </div>

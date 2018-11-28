@@ -1,5 +1,6 @@
 import getLedger from './get-ledger';
 import blockchain from './blockchain';
+import getKomodoRewards from './get-komodo-rewards';
 import bitcoin from 'bitcoinjs-lib';
 
 const walkDerivationPath = async ({account, isChange}) => {
@@ -55,12 +56,14 @@ const accountDiscovery = async () => {
       const addressInfo = accountAddresses.find(a => a.address === utxo.address);
       const {rawtx} = await blockchain.getRawTransaction(utxo.txid);
       const {locktime} = bitcoin.Transaction.fromHex(rawtx);
+      const rewards = getKomodoRewards(locktime, utxo.height, utxo.satoshis);
 
       return {
         id: `${utxo.txid}:${utxo.vout}`,
         ...addressInfo,
         ...utxo,
         locktime,
+        rewards,
         rawtx
       };
     }));
