@@ -14,11 +14,11 @@ const Account = ({account, tiptime, utxos}) => {
       <h4>Total rewards are {toBitcoin(rewards)} KMD with a {SERVICE_FEE_PERCENT}% fee of {toBitcoin(fee)} KMD meaning you will be credited with an extra {toBitcoin(rewards - fee)} KMD</h4>
       {utxos.map(utxo => (
         <div key={utxo.id} className="UTXO">
-          <h3>{utxo.address}</h3>
+          <strong>{utxo.address}</strong><br />
           <strong>Balance</strong> {toBitcoin(utxo.satoshis)}<br />
           <strong>Locktime</strong> {utxo.locktime}<br />
           <strong>Rewards</strong> {toBitcoin(getKomodoRewards({tiptime, ...utxo}))}<br />
-          <pre>{JSON.stringify(utxo )}</pre>
+          <br />
         </div>
       ))}
     </div>
