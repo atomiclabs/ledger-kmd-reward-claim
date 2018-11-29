@@ -1,7 +1,7 @@
 import React from 'react';
 import Utxo from './Utxo';
 import getKomodoRewards from './lib/get-komodo-rewards';
-import {SERVICE_FEE_PERCENT, TX_FEE} from './constants'
+import {SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import {toBitcoin} from 'satoshi-bitcoin';
 
 const Account = ({account, tiptime, utxos}) => {
