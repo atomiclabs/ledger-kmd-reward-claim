@@ -50,7 +50,7 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <button onClick={() => this.scanAddresses()}>
+        <button onClick={this.scanAddresses}>
           Scan Blockchain for Addresses
         </button>
         <div>
