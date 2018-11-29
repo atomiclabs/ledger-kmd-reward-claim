@@ -22,9 +22,9 @@ const isAvailable = async () => {
   }
 };
 
-const getAddress = async derivationPath => {
+const getAddress = async (derivationPath, verify) => {
   const ledger = await getDevice();
-  const {bitcoinAddress} = await ledger.getWalletPublicKey(derivationPath);
+  const {bitcoinAddress} = await ledger.getWalletPublicKey(derivationPath, verify);
   await ledger.close();
 
   return bitcoinAddress;
