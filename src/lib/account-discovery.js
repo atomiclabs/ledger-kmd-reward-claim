@@ -16,8 +16,8 @@ const walkDerivationPath = async ({account, isChange}) => {
   // https://github.com/LedgerHQ/ledgerjs/issues/114#issuecomment-372567048
   while (consecutiveUnusedAddresses < gapLimit) {
     const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
-    const pubKey = await ledger.getWalletPublicKey(derivationPath);
-    const address = await blockchain.getAddress(pubKey.bitcoinAddress);
+    const addressString = await ledger.getAddress(derivationPath);
+    const address = await blockchain.getAddress(addressString);
 
     addresses.push({address: address.addrStr, account, isChange, addressIndex, derivationPath});
 
