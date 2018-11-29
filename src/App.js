@@ -45,7 +45,7 @@ class App extends React.Component {
   };
 
   render() {
-    const {utxos, tiptime, scanning, status} = this.state;
+    const {utxos, tiptime, status} = this.state;
     const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
     return (
@@ -54,9 +54,7 @@ class App extends React.Component {
           Scan Blockchain for Addresses
         </button>
         <div>
-          {scanning && 'Scanning...'}
           {status && status}
-          {tiptime}
         </div>
         {accounts.map(account => (
           <Account
