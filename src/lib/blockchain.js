@@ -1,13 +1,24 @@
-const get = async endpoint => {
+const get = async (endpoint, opts) => {
   const insightUrl = 'https://kmdexplorer.io/insight-api-komodo/';
-  const response = await fetch(`${insightUrl}${endpoint}`);
+  const response = await fetch(`${insightUrl}${endpoint}`, opts);
 
   return await response.json();
 };
 
 const getAddress = address => get(`addr/${address}/?noTxList=1`);
 
-const getUtxos = addresses => get(`addrs/${addresses.join(',')}/utxo`);
+const getUtxos = addresses => {
+  const body = JSON.stringify({addrs: addresses.join(',')});
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  headers.append('Content-Length', body.length);
+
+  return get(`addrs/utxo`, {
+    method: 'POST',
+    body,
+    headers
+  });
+};
 
 const getTransaction = txid => get(`tx/${txid}`);
 
