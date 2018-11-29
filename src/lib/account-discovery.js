@@ -1,4 +1,4 @@
-import getLedger from './get-ledger';
+import ledger from './ledger';
 import blockchain from './blockchain';
 import bitcoin from 'bitcoinjs-lib';
 
@@ -8,8 +8,6 @@ const walkDerivationPath = async ({account, isChange}) => {
   const gapLimit = 1;
   let consecutiveUnusedAddresses = 0;
   let addressIndex = 0;
-
-  const ledger = await getLedger();
 
   // TODO: Don't request all pubkeys from Ledger, request xpub and derive keys on host
   // https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
@@ -29,8 +27,6 @@ const walkDerivationPath = async ({account, isChange}) => {
 
     addressIndex++;
   }
-
-  await ledger.close();
 
   return addresses.slice(0, addresses.length - gapLimit);
 };
