@@ -1,6 +1,7 @@
+import {INSIGHT_API_URL} from '../constants';
+
 const get = async (endpoint, opts) => {
-  const insightUrl = 'https://kmdexplorer.io/insight-api-komodo/';
-  const response = await fetch(`${insightUrl}${endpoint}`, opts);
+  const response = await fetch(`${INSIGHT_API_URL}${endpoint}`, opts);
 
   return await response.json();
 };
