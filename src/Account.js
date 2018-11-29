@@ -22,9 +22,13 @@ class Account extends React.Component {
     const unusedAddress = await ledger.getAddress(derivationPath);
 
     const outputs = [
-      {address: unusedAddress, value: (this.getBalance() + this.getClaimableAmount())},
-      {address: SERVICE_FEE_ADDRESS, value: this.getServiceFee()},
+      {address: unusedAddress, value: (this.getBalance() + this.getClaimableAmount())}
     ];
+
+    const serviceFee = this.getServiceFee();
+    if (serviceFee > 0) {
+      outputs.push({address: SERVICE_FEE_ADDRESS, value: serviceFee})
+    }
 
     const rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
 
