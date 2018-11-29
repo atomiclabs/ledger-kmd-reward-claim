@@ -1,6 +1,6 @@
 import React from 'react';
 import getKomodoRewards from './lib/get-komodo-rewards';
-import {SERVICE_FEE_PERCENT} from './constants'
+import {SERVICE_FEE_PERCENT, TX_FEE} from './constants'
 import {toBitcoin} from 'satoshi-bitcoin';
 
 const Account = ({account, tiptime, utxos}) => {
@@ -11,7 +11,12 @@ const Account = ({account, tiptime, utxos}) => {
   return (
     <div className="Account">
       <h2>Account {account + 1}: {toBitcoin(balance)} KMD</h2>
-      <h4>Total rewards are {toBitcoin(rewards)} KMD with a {SERVICE_FEE_PERCENT}% fee of {toBitcoin(fee)} KMD meaning you will be credited with an extra {toBitcoin(rewards - fee)} KMD</h4>
+      <p>
+        Rewards accrued: {toBitcoin(rewards)} KMD<br />
+        Minus {toBitcoin(fee)} KMD {SERVICE_FEE_PERCENT}% service fee.<br />
+        Minus {toBitcoin(TX_FEE)} KMD network transaction fee.<br />
+        Total claimable amount: {toBitcoin(rewards - fee - TX_FEE)} KMD.
+      </p>
       {utxos.map(utxo => (
         <div key={utxo.id} className="UTXO">
           <strong>{utxo.address}</strong><br />
