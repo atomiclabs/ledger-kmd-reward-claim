@@ -7,20 +7,21 @@ import Account from './Account';
 import './App.css';
 
 class App extends React.Component {
-  state = {
-    status: null,
-    utxos: [],
-    tiptime: null
-  };
+  state = this.initialState;
 
-  scanAddresses = async () => {
-    this.setState({
+  get initialState() {
+    return {
       status: null,
       utxos: [],
       tiptime: null
-    });
+    };
+  }
 
-    this.setState({status: 'Checking Ledger is available...'});
+  scanAddresses = async () => {
+    this.setState({
+      ...this.initialState,
+      status: 'Checking Ledger is available...'
+    });
 
     if (!(await ledger.isAvailable())) {
       this.setState({status: 'Error: Ledger device is unavailable!'});
