@@ -23,6 +23,7 @@
     "@ledgerhq/hw-app-btc": "^4.30.0",
     "@ledgerhq/hw-transport-u2f": "^4.28.0",
     "bitcoinjs-lib": "^4.0.2",
+    "build-output-script": "^1.0.3",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "satoshi-bitcoin": "^1.0.4"

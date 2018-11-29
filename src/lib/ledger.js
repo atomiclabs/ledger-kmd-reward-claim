@@ -1,5 +1,6 @@
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import Btc from '@ledgerhq/hw-app-btc';
+import buildOutputScript from 'build-output-script';
 
 const getDevice = async () => {
   const transport = await TransportU2F.create();
@@ -29,10 +30,36 @@ const getAddress = async derivationPath => {
   return bitcoinAddress;
 };
 
+const createTransaction = async function(utxos, outputs) {
+  const ledger = await getDevice();
+
+  const inputs = await Promise.all(utxos.map(async utxo => {
+    const tx = await ledger.splitTransaction(utxo.rawtx);
+    return [tx, utxo.vout];
+  }));
+  const associatedKeysets = utxos.map(utxo => utxo.derivationPath);
+  const outputScript = buildOutputScript(outputs);
+  const unixtime = Math.floor(Date.now() / 1000);
+  const lockTime = (unixtime - 777);
+
+  const transaction = await ledger.createPaymentTransactionNew(
+    inputs,
+    associatedKeysets,
+    undefined,
+    outputScript,
+    lockTime
+  );
+
+  await ledger.close();
+
+  return transaction;
+};
+
 const ledger = {
   getDevice,
   isAvailable,
-  getAddress
+  getAddress,
+  createTransaction
 };
 
 export default ledger;
