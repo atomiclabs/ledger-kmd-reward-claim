@@ -1,5 +1,6 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
+import ledger from './lib/ledger';
 import accountDiscovery from './lib/account-discovery';
 import blockchain from './lib/blockchain';
 import Account from './Account';
@@ -7,40 +8,43 @@ import './App.css';
 
 class App extends React.Component {
   state = {
-    error: null,
-    scanning: false,
+    status: null,
     utxos: [],
     tiptime: null
   };
 
   scanAddresses = async () => {
     this.setState({
-      error: null,
-      scanning: true,
+      status: null,
       utxos: [],
       tiptime: null
     });
+
+    this.setState({status: 'Checking Ledger is available...'});
+
+    if (!(await ledger.isAvailable())) {
+      this.setState({status: 'Error: Ledger device is unavailable!'});
+      return;
+    } else {
+      this.setState({status: 'Scanning blockchain for funds...'});
+    }
 
     try {
       const utxos = await accountDiscovery();
       const tiptime = await blockchain.getTipTime();
 
       this.setState({
-        error: null,
-        scanning: false,
+        status: 'Scan complete!',
         utxos,
         tiptime
       });
     } catch (error) {
-      this.setState({
-        error,
-        scanning: false
-      });
+      this.setState({status: `Error: ${error.message}`});
     }
   };
 
   render() {
-    const {utxos, tiptime, scanning, error} = this.state;
+    const {utxos, tiptime, scanning, status} = this.state;
     const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
     return (
@@ -50,7 +54,7 @@ class App extends React.Component {
         </button>
         <div>
           {scanning && 'Scanning...'}
-          {error && `Error: ${error.message}`}
+          {status && status}
           {tiptime}
         </div>
         {accounts.map(account => (
