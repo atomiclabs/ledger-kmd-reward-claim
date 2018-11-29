@@ -1,22 +1,38 @@
+const get = async endpoint => {
+  const insightUrl = 'https://kmdexplorer.io/insight-api-komodo/';
+  const response = await fetch(`${insightUrl}${endpoint}`);
+
+  return await response.json();
+};
+
+const getAddress = address => get(`addr/${address}/?noTxList=1`);
+
+const getUtxos = addresses => get(`addrs/${addresses.join(',')}/utxo`);
+
+const getTransaction = txid => get(`tx/${txid}`);
+
+const getRawTransaction = txid => get(`rawtx/${txid}`);
+
+const getBestBlockHash = () => get('status?q=getBestBlockHash');
+
+const getBlock = blockHash => get(`block/${blockHash}`);
+
+const getTipTime = async () => {
+  const {bestblockhash} = await getBestBlockHash();
+  const block = await getBlock(bestblockhash);
+
+  return block.time;
+}
+
 const blockchain = {
-  get: async endpoint => {
-    const insightUrl = 'https://kmdexplorer.io/insight-api-komodo/';
-    const response = await fetch(`${insightUrl}${endpoint}`);
-
-    return await response.json();
-  },
-  getAddress: address => blockchain.get(`addr/${address}/?noTxList=1`),
-  getUtxos: addresses => blockchain.get(`addrs/${addresses.join(',')}/utxo`),
-  getTransaction: txid => blockchain.get(`tx/${txid}`),
-  getRawTransaction: txid => blockchain.get(`rawtx/${txid}`),
-  getBestBlockHash: () => blockchain.get('status?q=getBestBlockHash'),
-  getBlock: blockHash => blockchain.get(`block/${blockHash}`),
-  getTipTime: async () => {
-    const {bestblockhash} = await blockchain.getBestBlockHash();
-    const block = await blockchain.getBlock(bestblockhash);
-
-    return block.time;
-  }
+  get,
+  getAddress,
+  getUtxos,
+  getTransaction,
+  getRawTransaction,
+  getBestBlockHash,
+  getBlock,
+  getTipTime
 };
 
 export default blockchain;
