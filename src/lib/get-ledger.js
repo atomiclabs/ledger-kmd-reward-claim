@@ -13,6 +13,16 @@ const getLedger = async () => {
     return bitcoinAddress;
   }
 
+  ledger.isAvailable = async () => {
+    try {
+      await ledger.getWalletPublicKey(`m/44'/0'/0'/0/0`);
+
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   return ledger;
 };
 
