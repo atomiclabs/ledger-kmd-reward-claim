@@ -23,13 +23,13 @@ class App extends React.Component {
       status: 'Checking Ledger is available...'
     });
 
-    if (!(await ledger.isAvailable())) {
+    const ledgerIsAvailable = await ledger.isAvailable();
+    if (!ledgerIsAvailable) {
       this.setState({status: 'Error: Ledger device is unavailable!'});
       return;
-    } else {
-      this.setState({status: 'Scanning blockchain for funds...'});
     }
 
+    this.setState({status: 'Scanning blockchain for funds...'});
     try {
       const utxos = await accountDiscovery();
       const tiptime = await blockchain.getTipTime();
