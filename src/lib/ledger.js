@@ -14,11 +14,10 @@ const isAvailable = async () => {
   const ledger = await getDevice();
   try {
     await ledger.getWalletPublicKey(`m/44'/0'/0'/0/0`);
+    await ledger.close();
     return true;
   } catch (error) {
     return false;
-  } finally {
-    await ledger.close();
   }
 };
 
