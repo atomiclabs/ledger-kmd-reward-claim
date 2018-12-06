@@ -40,17 +40,17 @@ class Account extends React.Component {
 
     return (
       <div className="Account">
-      <h2>Account {account + 1}: {toBitcoin(this.getBalance())} KMD</h2>
-      <button onClick={this.claimRewards}>
-        Claim Rewards
-      </button>
-      <p>
-        Rewards accrued: {toBitcoin(this.getRewards())} KMD<br />
-        Minus {toBitcoin(this.getServiceFee())} KMD {SERVICE_FEE_PERCENT}% service fee.<br />
-        Minus {toBitcoin(TX_FEE)} KMD network transaction fee.<br />
-        Total claimable amount: {toBitcoin(this.getClaimableAmount())} KMD.
-      </p>
-      {utxos.map(utxo => <Utxo key={utxo.id} utxo={utxo} tiptime={tiptime} />)}
+        <h2>Account {account + 1}: {toBitcoin(this.getBalance())} KMD</h2>
+        <button onClick={this.claimRewards}>
+          Claim Rewards
+        </button>
+        <p>
+          Rewards accrued: {toBitcoin(this.getRewards())} KMD<br />
+          Minus {toBitcoin(this.getServiceFee())} KMD {SERVICE_FEE_PERCENT}% service fee.<br />
+          Minus {toBitcoin(TX_FEE)} KMD network transaction fee.<br />
+          Total claimable amount: {toBitcoin(this.getClaimableAmount())} KMD.
+        </p>
+        {utxos.map(utxo => <Utxo key={utxo.id} utxo={utxo} tiptime={tiptime} />)}
       </div>
     );
   }
