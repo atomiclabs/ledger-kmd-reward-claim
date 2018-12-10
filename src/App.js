@@ -3,7 +3,7 @@ import {hot} from 'react-hot-loader';
 import ledger from './lib/ledger';
 import accountDiscovery from './lib/account-discovery';
 import blockchain from './lib/blockchain';
-import Account from './Account';
+import Accounts from './Accounts';
 import './App.css';
 
 class App extends React.Component {
@@ -55,7 +55,6 @@ class App extends React.Component {
 
   render() {
     const {isCheckingRewards, utxos, tiptime, status} = this.state;
-    const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
     return (
       <div className="App container">
@@ -76,16 +75,10 @@ class App extends React.Component {
             </div>
           </div>
         </section>
-        <div className="columns is-multiline">
-          {accounts.map(account => (
-            <Account
-              key={account}
-              account={account}
-              tiptime={tiptime}
-              utxos={utxos.filter(utxo => utxo.account === account)}
-              />
-          ))}
-        </div>
+        <Accounts
+          utxos={utxos}
+          tiptime={tiptime}
+          />
       </div>
     );
   }
