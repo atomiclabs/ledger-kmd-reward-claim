@@ -1,9 +1,10 @@
 import React from 'react';
-import Utxo from './Utxo';
+import Utxos from './Utxos';
 import getKomodoRewards from './lib/get-komodo-rewards';
 import ledger from './lib/ledger';
 import {SERVICE_FEE_ADDRESS, SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import {toBitcoin} from 'satoshi-bitcoin';
+import './Account.css';
 
 class Account extends React.Component {
   getBalance = () => this.props.utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);
@@ -39,18 +40,28 @@ class Account extends React.Component {
     const {account, utxos, tiptime} = this.props;
 
     return (
-      <div className="Account">
-        <h2>Account {account + 1}: {toBitcoin(this.getBalance())} KMD</h2>
-        <button onClick={this.claimRewards}>
-          Claim Rewards
-        </button>
-        <p>
-          Rewards accrued: {toBitcoin(this.getRewards())} KMD<br />
-          Minus {toBitcoin(this.getServiceFee())} KMD {SERVICE_FEE_PERCENT}% service fee.<br />
-          Minus {toBitcoin(TX_FEE)} KMD network transaction fee.<br />
-          Total claimable amount: {toBitcoin(this.getClaimableAmount())} KMD.
-        </p>
-        {utxos.map(utxo => <Utxo key={utxo.id} utxo={utxo} tiptime={tiptime} />)}
+      <div className="Account column is-full">
+        <div className="box">
+          <div className="content">
+            <h2>
+              Account {account + 1}
+              <div className="balance">
+                {toBitcoin(this.getBalance())} KMD
+              </div>
+            </h2>
+            <p>
+              Rewards accrued: {toBitcoin(this.getRewards())} KMD<br />
+              Minus {SERVICE_FEE_PERCENT}% service fee of {toBitcoin(this.getServiceFee())} KMD.<br />
+              Minus {toBitcoin(TX_FEE)} KMD network transaction fee.<br />
+              Total claimable amount: {toBitcoin(this.getClaimableAmount())} KMD.
+            </p>
+            <h4>UTXOs</h4>
+            <Utxos utxos={utxos} tiptime={tiptime} />
+            <button className="button is-primary" onClick={this.claimRewards}>
+              Claim Rewards
+            </button>
+          </div>
+        </div>
       </div>
     );
   }

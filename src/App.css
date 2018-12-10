@@ -3,3 +3,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.App .wrapper {
+  position: relative;
+}
+
+.App .status {
+  display: inline-block;
+  position: absolute;
+  bottom: 0;
+  margin-left: 1em;
+}

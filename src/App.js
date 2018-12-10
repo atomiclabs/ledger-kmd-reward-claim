@@ -13,19 +13,24 @@ class App extends React.Component {
     return {
       status: null,
       utxos: [],
-      tiptime: null
+      tiptime: null,
+      isCheckingRewards: false
     };
   }
 
   scanAddresses = async () => {
     this.setState({
       ...this.initialState,
+      isCheckingRewards: true,
       status: 'Checking Ledger is available...'
     });
 
     const ledgerIsAvailable = await ledger.isAvailable();
     if (!ledgerIsAvailable) {
-      this.setState({status: 'Error: Ledger device is unavailable!'});
+      this.setState({
+        isCheckingRewards: false,
+        status: 'Error: Ledger device is unavailable!'
+      });
       return;
     }
 
@@ -35,35 +40,52 @@ class App extends React.Component {
       const tiptime = await blockchain.getTipTime();
 
       this.setState({
+        isCheckingRewards: false,
         status: 'Scan complete!',
         utxos,
         tiptime
       });
     } catch (error) {
-      this.setState({status: `Error: ${error.message}`});
+      this.setState({
+        isCheckingRewards: false,
+        status: `Error: ${error.message}`
+      });
     }
   };
 
   render() {
-    const {utxos, tiptime, status} = this.state;
+    const {isCheckingRewards, utxos, tiptime, status} = this.state;
     const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
     return (
-      <div className="App">
-        <button onClick={this.scanAddresses}>
-          Scan Blockchain for Addresses
-        </button>
-        <div>
-          {status && status}
+      <div className="App container">
+        <section className="hero">
+          <div className="hero-body">
+            <div className="container">
+              <h1 className="title">
+                Connect your Ledger and open the Komodo app on your device.
+              </h1>
+              <h2 className="subtitle">
+                <div className="wrapper">
+                  <button className={`button is-primary is-large ${isCheckingRewards && 'is-loading'}`} onClick={this.scanAddresses}>
+                    Check Rewards
+                  </button>
+                  <span className="status">{status && status}</span>
+                </div>
+              </h2>
+            </div>
+          </div>
+        </section>
+        <div className="columns is-multiline">
+          {accounts.map(account => (
+            <Account
+              key={account}
+              account={account}
+              tiptime={tiptime}
+              utxos={utxos.filter(utxo => utxo.account === account)}
+              />
+          ))}
         </div>
-        {accounts.map(account => (
-          <Account
-            key={account}
-            account={account}
-            tiptime={tiptime}
-            utxos={utxos.filter(utxo => utxo.account === account)}
-            />
-        ))}
       </div>
     );
   }
