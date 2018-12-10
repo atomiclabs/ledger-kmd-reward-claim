@@ -57,7 +57,7 @@ class App extends React.Component {
     const {isCheckingRewards, utxos, tiptime, status} = this.state;
 
     return (
-      <div className="App container">
+      <div className="App">
         <section className="hero">
           <div className="hero-body">
             <div className="container">

@@ -4,6 +4,7 @@ import getKomodoRewards from './lib/get-komodo-rewards';
 import ledger from './lib/ledger';
 import {SERVICE_FEE_ADDRESS, SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import {toBitcoin} from 'satoshi-bitcoin';
+import './Accounts.css';
 import './Account.css';
 
 class Account extends React.Component {
@@ -71,15 +72,19 @@ const Accounts = ({utxos, tiptime}) => {
   const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
 
   return (
-    <div className="columns is-multiline">
-      {accounts.map(account => (
-        <Account
-          key={account}
-          account={account}
-          tiptime={tiptime}
-          utxos={utxos.filter(utxo => utxo.account === account)}
-          />
-      ))}
+    <div className="Accounts">
+      <div className="container">
+        <div className="columns is-multiline">
+          {accounts.map(account => (
+            <Account
+              key={account}
+              account={account}
+              tiptime={tiptime}
+              utxos={utxos.filter(utxo => utxo.account === account)}
+              />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
