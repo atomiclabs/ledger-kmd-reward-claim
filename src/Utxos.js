@@ -1,9 +1,10 @@
 import React from 'react';
 import {toBitcoin} from 'satoshi-bitcoin';
 import getKomodoRewards from './lib/get-komodo-rewards';
+import getRewardEndDate from './lib/get-reward-end-date';
 
 const Utxos = ({utxos, tiptime}) => {
-  const headings = ['Address', 'Balance', 'Locktime', 'Rewards'];
+  const headings = ['Address', 'Balance', 'Locktime', 'Rewards', 'Rewards Stop Accruing'];
 
   return (
     <table className="table is-striped">
@@ -24,6 +25,7 @@ const Utxos = ({utxos, tiptime}) => {
             <td>{toBitcoin(utxo.satoshis)}</td>
             <td>{utxo.locktime}</td>
             <td>{toBitcoin(getKomodoRewards({tiptime, ...utxo}))}</td>
+            <td>{getRewardEndDate(utxo)}</td>
           </tr>
         ))}
       </tbody>
