@@ -29,9 +29,9 @@ const Utxos = ({utxos, tiptime}) => {
         {utxos.map(utxo => (
           <tr key={utxo.id} className="utxo">
             <th>{utxo.address}</th>
-            <td>{toBitcoin(utxo.satoshis)}</td>
+            <td>{toBitcoin(utxo.satoshis)} KMD</td>
             <td><Boolean value={utxo.locktime} /></td>
-            <td>{toBitcoin(getKomodoRewards({tiptime, ...utxo}))}</td>
+            <td>{toBitcoin(getKomodoRewards({tiptime, ...utxo}))} KMD</td>
             <td>{humanRewardEndDate(utxo)}</td>
           </tr>
         ))}
