@@ -50,12 +50,26 @@ class Account extends React.Component {
                 {toBitcoin(this.getBalance())} KMD
               </div>
             </h2>
-            <p>
-              Rewards accrued: {toBitcoin(this.getRewards())} KMD<br />
-              Minus {SERVICE_FEE_PERCENT}% service fee of {toBitcoin(this.getServiceFee())} KMD.<br />
-              Minus {toBitcoin(TX_FEE)} KMD network transaction fee.<br />
-              Total claimable amount: {toBitcoin(this.getClaimableAmount())} KMD.
-            </p>
+            <table className="breakdown">
+              <tbody>
+                <tr>
+                  <td>{toBitcoin(this.getRewards())} KMD</td>
+                  <td>Rewards accrued</td>
+                </tr>
+                <tr>
+                  <td>{toBitcoin(this.getServiceFee())} KMD</td>
+                  <td>{SERVICE_FEE_PERCENT}% service fee</td>
+                </tr>
+                <tr>
+                  <td>{toBitcoin(TX_FEE)} KMD</td>
+                  <td>Network transaction fee</td>
+                </tr>
+                <tr>
+                  <td><strong>{toBitcoin(this.getClaimableAmount())} KMD</strong></td>
+                  <td>Total claimable amount</td>
+                </tr>
+              </tbody>
+            </table>
             <h4>UTXOs</h4>
             <Utxos utxos={utxos} tiptime={tiptime} />
             <button className="button is-primary" onClick={this.claimRewards}>

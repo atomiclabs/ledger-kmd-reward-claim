@@ -4,3 +4,24 @@
     color: #868686;
     margin-top: 0.2em;
 }
+
+.Account table.breakdown {
+  width: auto;
+}
+
+.Account table.breakdown td {
+  position: relative;
+  padding: 0 0 0 1em;
+}
+
+.Account table.breakdown td:first-child:before {
+  content: '-';
+  position: absolute;
+  left: 0;
+}
+.Account table.breakdown tr:first-child td:first-child:before {
+  content: '';
+}
+.Account table.breakdown tr:last-child td:first-child:before {
+  content: '=';
+}
