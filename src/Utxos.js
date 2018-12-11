@@ -3,8 +3,15 @@ import {toBitcoin} from 'satoshi-bitcoin';
 import getKomodoRewards from './lib/get-komodo-rewards';
 import humanRewardEndDate from './lib/human-reward-end-date';
 
+const Boolean = ({value}) => (
+  <span className={`icon has-text-${value ? 'success' : 'danger'}`}>
+    <i className={`fas fa-${value ? 'check' : 'times'}-circle`}></i>
+  </span>
+);
+
 const Utxos = ({utxos, tiptime}) => {
   const headings = ['Address', 'Balance', 'Locktime', 'Rewards', 'Rewards Stop Accruing'];
+
 
   return (
     <table className="table is-striped">
@@ -23,7 +30,7 @@ const Utxos = ({utxos, tiptime}) => {
           <tr key={utxo.id} className="utxo">
             <th>{utxo.address}</th>
             <td>{toBitcoin(utxo.satoshis)}</td>
-            <td>{utxo.locktime}</td>
+            <td><Boolean value={utxo.locktime} /></td>
             <td>{toBitcoin(getKomodoRewards({tiptime, ...utxo}))}</td>
             <td>{humanRewardEndDate(utxo)}</td>
           </tr>
