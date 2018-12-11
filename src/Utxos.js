@@ -10,7 +10,7 @@ const Boolean = ({value}) => (
 );
 
 const Utxos = ({utxos, tiptime}) => {
-  const headings = ['Address', 'Balance', 'Locktime', 'Rewards', 'Rewards Stop Accruing'];
+  const headings = ['Address', 'Value', 'Locktime', 'Rewards', 'Rewards Stop Accruing'];
 
 
   return (
