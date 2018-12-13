@@ -50,7 +50,7 @@ class Account extends React.Component {
                 {toBitcoin(this.getBalance())} KMD
               </div>
               <small>
-                + {toBitcoin(this.getClaimableAmount())} KMD Claimable Rewards
+                + {toBitcoin(Math.max(0, this.getClaimableAmount()))} KMD Claimable Rewards
               </small>
             </h2>
             <h4>UTXOs</h4>
