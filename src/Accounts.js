@@ -39,6 +39,7 @@ class Account extends React.Component {
 
   render() {
     const {account, utxos, tiptime} = this.props;
+    const isClaimableAmount = (this.getClaimableAmount() > 0);
 
     return (
       <div className="Account column is-full">
@@ -55,28 +56,32 @@ class Account extends React.Component {
             </h2>
             <h4>UTXOs</h4>
             <Utxos utxos={utxos} tiptime={tiptime} />
-            <h4>Breakdown</h4>
-            <table className="breakdown">
-              <tbody>
-                <tr>
-                  <td>{toBitcoin(this.getRewards())} KMD</td>
-                  <td>Rewards accrued</td>
-                </tr>
-                <tr>
-                  <td>{toBitcoin(this.getServiceFee())} KMD</td>
-                  <td>{SERVICE_FEE_PERCENT}% service fee</td>
-                </tr>
-                <tr>
-                  <td>{toBitcoin(TX_FEE)} KMD</td>
-                  <td>Network transaction fee</td>
-                </tr>
-                <tr>
-                  <td><strong>{toBitcoin(this.getClaimableAmount())} KMD</strong></td>
-                  <td>Total claimable amount</td>
-                </tr>
-              </tbody>
-            </table>
-            <button className="button is-primary" onClick={this.claimRewards}>
+            {isClaimableAmount && (
+              <>
+                <h4>Breakdown</h4>
+                <table className="breakdown">
+                  <tbody>
+                    <tr>
+                      <td>{toBitcoin(this.getRewards())} KMD</td>
+                      <td>Rewards accrued</td>
+                    </tr>
+                    <tr>
+                      <td>{toBitcoin(this.getServiceFee())} KMD</td>
+                      <td>{SERVICE_FEE_PERCENT}% service fee</td>
+                    </tr>
+                    <tr>
+                      <td>{toBitcoin(TX_FEE)} KMD</td>
+                      <td>Network transaction fee</td>
+                    </tr>
+                    <tr>
+                      <td><strong>{toBitcoin(this.getClaimableAmount())} KMD</strong></td>
+                      <td>Total claimable amount</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </>
+            )}
+            <button className="button is-primary" disabled={!isClaimableAmount} onClick={this.claimRewards}>
               Claim Rewards
             </button>
           </div>
