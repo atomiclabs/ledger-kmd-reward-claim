@@ -53,6 +53,9 @@ class Account extends React.Component {
                 + {toBitcoin(this.getClaimableAmount())} KMD Claimable Rewards
               </small>
             </h2>
+            <h4>UTXOs</h4>
+            <Utxos utxos={utxos} tiptime={tiptime} />
+            <h4>Breakdown</h4>
             <table className="breakdown">
               <tbody>
                 <tr>
@@ -73,8 +76,6 @@ class Account extends React.Component {
                 </tr>
               </tbody>
             </table>
-            <h4>UTXOs</h4>
-            <Utxos utxos={utxos} tiptime={tiptime} />
             <button className="button is-primary" onClick={this.claimRewards}>
               Claim Rewards
             </button>
