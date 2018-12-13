@@ -9,7 +9,8 @@ const getRewardEndDate = ({locktime, height}) => {
   // Return false if UTXO for rewards
   if (
     (height >= KOMODO_ENDOFERA) ||
-    (locktime < LOCKTIME_THRESHOLD)
+    (locktime < LOCKTIME_THRESHOLD) ||
+    (!height)
   ) {
     return false;
   }

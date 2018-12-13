@@ -16,7 +16,8 @@ const getKomodoRewards = ({tiptime, locktime, height, satoshis}) => {
     (height >= KOMODO_ENDOFERA) ||
     (locktime < LOCKTIME_THRESHOLD) ||
     (satoshis < MIN_SATOSHIS) ||
-    (coinage < ONE_HOUR)
+    (coinage < ONE_HOUR) ||
+    (!height)
   ) {
     return 0;
   }
