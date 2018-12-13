@@ -49,6 +49,9 @@ class Account extends React.Component {
               <div className="balance">
                 {toBitcoin(this.getBalance())} KMD
               </div>
+              <small>
+                + {toBitcoin(this.getClaimableAmount())} KMD Claimable Rewards
+              </small>
             </h2>
             <table className="breakdown">
               <tbody>
