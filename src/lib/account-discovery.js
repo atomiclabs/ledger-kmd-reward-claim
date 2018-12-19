@@ -1,20 +1,23 @@
 import ledger from './ledger';
 import blockchain from './blockchain';
+import {KOMODO} from './../constants';
 import bitcoin from 'bitcoinjs-lib';
 
-const walkDerivationPath = async ({account, isChange}) => {
+const getAddress = publicKey => bitcoin.payments.p2pkh({
+  pubkey: publicKey,
+  network: KOMODO
+}).address;
+
+const walkDerivationPath = async ({node, account, parentDerivationPath, isChange}) => {
   const addresses = [];
   // const gapLimit = 20; // Should be 20 for prod, 1 for dev
   const gapLimit = 1;
   let consecutiveUnusedAddresses = 0;
   let addressIndex = 0;
 
-  // TODO: Don't request all pubkeys from Ledger, request xpub and derive keys on host
-  // https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#serialization-format
-  // https://github.com/LedgerHQ/ledgerjs/issues/114#issuecomment-372567048
   while (consecutiveUnusedAddresses < gapLimit) {
     const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
-    const addressString = await ledger.getAddress(derivationPath);
+    const addressString = getAddress(node.derive(addressIndex).publicKey);
     const address = await blockchain.getAddress(addressString);
 
     addresses.push({address: address.addrStr, account, isChange, addressIndex, derivationPath});
@@ -31,10 +34,17 @@ const walkDerivationPath = async ({account, isChange}) => {
   return addresses.slice(0, addresses.length - gapLimit);
 };
 
-const getAccountAddresses = async account => [
-  ...await walkDerivationPath({account, isChange: false}),
-  ...await walkDerivationPath({account, isChange: true})
-];
+const getAccountAddresses = async account => {
+  const derivationPath = `44'/141'/${account}'`;
+  const xpub = await ledger.getXpub(derivationPath);
+  const node = bitcoin.bip32.fromBase58(xpub);
+  const externalNode = node.derive(0);
+  const internalNode = node.derive(1);
+  const externalAddresses = await walkDerivationPath({node: externalNode, account, parentDerivationPath: derivationPath, isChange: false});
+  const internalAddresses = await walkDerivationPath({node: internalNode, account, parentDerivationPath: derivationPath, isChange: true});
+
+  return [...externalAddresses, ...internalAddresses];
+}
 
 const accountDiscovery = async () => {
   let utxos = [];
