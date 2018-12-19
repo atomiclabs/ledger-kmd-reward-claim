@@ -39,8 +39,11 @@ const getAccountAddresses = async account => {
   const node = bitcoin.bip32.fromBase58(xpub);
   const externalNode = node.derive(0);
   const internalNode = node.derive(1);
-  const externalAddresses = await walkDerivationPath({node: externalNode, account, parentDerivationPath: derivationPath, isChange: false});
-  const internalAddresses = await walkDerivationPath({node: internalNode, account, parentDerivationPath: derivationPath, isChange: true});
+
+  const [externalAddresses, internalAddresses] = await Promise.all([
+    walkDerivationPath({node: externalNode, account, parentDerivationPath: derivationPath, isChange: false}),
+    walkDerivationPath({node: internalNode, account, parentDerivationPath: derivationPath, isChange: true})
+  ]);
 
   return [...externalAddresses, ...internalAddresses];
 }
