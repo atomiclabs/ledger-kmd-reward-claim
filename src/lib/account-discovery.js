@@ -30,7 +30,7 @@ const walkDerivationPath = async ({node, account, parentDerivationPath, isChange
     addressIndex++;
   }
 
-  return addresses.slice(0, addresses.length - gapLimit);
+  return addresses.slice(0, addresses.length - consecutiveUnusedAddresses);
 };
 
 const getAccountAddresses = async account => {
