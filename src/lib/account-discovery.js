@@ -9,25 +9,32 @@ const getAddress = publicKey => bitcoin.payments.p2pkh({
 }).address;
 
 const walkDerivationPath = async ({node, account, parentDerivationPath, isChange}) => {
-  const addresses = [];
+  const addressConcurrency = 10;
   const gapLimit = 20;
+  const addresses = [];
   let consecutiveUnusedAddresses = 0;
   let addressIndex = 0;
 
   while (consecutiveUnusedAddresses < gapLimit) {
-    const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
-    const addressString = getAddress(node.derive(addressIndex).publicKey);
-    const address = await blockchain.getAddress(addressString);
+    const addressApiRequests = [];
 
-    addresses.push({address: address.addrStr, account, isChange, addressIndex, derivationPath});
+    for (let i = 0; i < addressConcurrency; i++) {
+      const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
+      const address = getAddress(node.derive(addressIndex).publicKey);
 
-    if (address.totalReceived > 0 || address.unconfirmedBalance > 0) {
-      consecutiveUnusedAddresses = 0;
-    } else {
-      consecutiveUnusedAddresses++;
+      addressApiRequests.push(blockchain.getAddress(address));
+      addresses.push({address, account, isChange, addressIndex, derivationPath});
+
+      addressIndex++;
     }
 
-    addressIndex++;
+    for (const address of await Promise.all(addressApiRequests)) {
+      if (address.totalReceived > 0 || address.unconfirmedBalance > 0) {
+        consecutiveUnusedAddresses = 0;
+      } else {
+        consecutiveUnusedAddresses++;
+      }
+    }
   }
 
   return addresses.slice(0, addresses.length - consecutiveUnusedAddresses);
