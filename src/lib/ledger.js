@@ -62,7 +62,7 @@ const getXpub = async derivationPath => {
   const {publicKey, chainCode} = await ledger.getWalletPublicKey(derivationPath);
   const pathArray = bip32Path.fromString(derivationPath).toPathArray();
   const depth = pathArray.length;
-  const childnum = (0x80000000 | pathArray.pop()) >>> 0;
+  const childnum = ((0x80000000 | pathArray.pop()) >>> 0);
   const xpub = createXpub({
     depth,
     childnum,
