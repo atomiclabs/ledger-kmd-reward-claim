@@ -10,8 +10,7 @@ const getAddress = publicKey => bitcoin.payments.p2pkh({
 
 const walkDerivationPath = async ({node, account, parentDerivationPath, isChange}) => {
   const addresses = [];
-  // const gapLimit = 20; // Should be 20 for prod, 1 for dev
-  const gapLimit = 1;
+  const gapLimit = 20;
   let consecutiveUnusedAddresses = 0;
   let addressIndex = 0;
 
