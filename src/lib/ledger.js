@@ -1,6 +1,8 @@
 import TransportU2F from '@ledgerhq/hw-transport-u2f';
 import Btc from '@ledgerhq/hw-app-btc';
 import buildOutputScript from 'build-output-script';
+import bip32Path from 'bip32-path';
+import createXpub from './create-xpub';
 
 const getDevice = async () => {
   const transport = await TransportU2F.create();
@@ -55,11 +57,29 @@ const createTransaction = async function(utxos, outputs) {
   return transaction;
 };
 
+const getXpub = async derivationPath => {
+  const ledger = await getDevice();
+  const {publicKey, chainCode} = await ledger.getWalletPublicKey(derivationPath);
+  const pathArray = bip32Path.fromString(derivationPath).toPathArray();
+  const depth = pathArray.length;
+  const childnum = (0x80000000 | pathArray.pop()) >>> 0;
+  const xpub = createXpub({
+    depth,
+    childnum,
+    publicKey,
+    chainCode
+  });
+  await ledger.close();
+
+  return xpub;
+};
+
 const ledger = {
   getDevice,
   isAvailable,
   getAddress,
-  createTransaction
+  createTransaction,
+  getXpub
 };
 
 export default ledger;
