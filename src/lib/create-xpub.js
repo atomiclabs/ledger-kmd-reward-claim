@@ -1,16 +1,26 @@
-import bitcoin from 'bitcoinjs-lib';
 import bs58check from 'bs58check';
+import {sha256, ripemd160} from 'hash.js';
 
-const XPUB = bitcoin.networks.bitcoin.bip32.public;
+const XPUB = 0x0488B21E;
 
-const compressPublicKey = publicKey => bitcoin.ECPair
-  .fromPublicKey(Buffer.from(publicKey, 'hex'), {compressed: true})
-  .publicKey.toString('hex');
+const compressPublicKey = publicKey => {
+  if (publicKey.startsWith('02') || publicKey.startsWith('03')) {
+    return publicKey;
+  }
+
+  const yIsEven = (parseInt(publicKey.slice(-2), 16) % 2 === 0);
+
+  return (yIsEven ? '02' : '03') + publicKey.slice(2, 66);
+};
+
+const hash160 = buf => ripemd160().update(
+  sha256().update(buf).digest()
+).digest();
 
 const getPublicKeyFingerprint = publicKey => {
   publicKey = Buffer.from(publicKey, 'hex');
 
-  let publicKeyHash = bitcoin.crypto.hash160(publicKey);
+  let publicKeyHash = hash160(publicKey);
 
   return (
     ((publicKeyHash[0] << 24) |
