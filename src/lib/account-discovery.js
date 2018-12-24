@@ -8,7 +8,7 @@ const getAddress = publicKey => bitcoin.payments.p2pkh({
   network: KOMODO
 }).address;
 
-const walkDerivationPath = async ({node, account, parentDerivationPath, isChange}) => {
+const walkDerivationPath = async node => {
   const addressConcurrency = 10;
   const gapLimit = 20;
   const addresses = [];
@@ -19,11 +19,10 @@ const walkDerivationPath = async ({node, account, parentDerivationPath, isChange
     const addressApiRequests = [];
 
     for (let i = 0; i < addressConcurrency; i++) {
-      const derivationPath = `44'/141'/${account}'/${isChange ? 1 : 0}/${addressIndex}`;
       const address = getAddress(node.derive(addressIndex).publicKey);
 
       addressApiRequests.push(blockchain.getAddress(address));
-      addresses.push({address, account, isChange, addressIndex, derivationPath});
+      addresses.push({address, addressIndex});
 
       addressIndex++;
     }
@@ -48,11 +47,23 @@ const getAccountAddresses = async account => {
   const internalNode = node.derive(1);
 
   const [externalAddresses, internalAddresses] = await Promise.all([
-    walkDerivationPath({node: externalNode, account, parentDerivationPath: derivationPath, isChange: false}),
-    walkDerivationPath({node: internalNode, account, parentDerivationPath: derivationPath, isChange: true})
+    walkDerivationPath(externalNode),
+    walkDerivationPath(internalNode)
   ]);
 
-  return [...externalAddresses, ...internalAddresses];
+  const addAddressMeta = ({isChange}) => {
+    return address => ({
+      ...address,
+      account,
+      isChange,
+      derivationPath: `${derivationPath}/${isChange ? 1 : 0}/${address.addressIndex}`
+    });
+  };
+
+  return [
+    ...externalAddresses.map(addAddressMeta({isChange: false})),
+    ...internalAddresses.map(addAddressMeta({isChange: true}))
+  ];
 }
 
 const accountDiscovery = async () => {
