@@ -12,13 +12,15 @@ const get = async (endpoint, postData) => {
   }
 
   const response = await fetch(`${INSIGHT_API_URL}${endpoint}`, opts);
-  const responseText = await response.text();
+  const isJson = response.headers.get('Content-Type').includes('application/json');
 
-  try {
-    return JSON.parse(responseText);
-  } catch (err) {
-    throw new Error(responseText);
+  const body = isJson ? await response.json() : await response.text();
+
+  if (!response.ok) {
+    throw new Error(body);
   }
+
+  return body;
 };
 
 const getAddress = address => get(`addr/${address}/?noTxList=1`);
