@@ -12,7 +12,6 @@ const get = async (endpoint, postData) => {
   }
 
   const response = await fetch(`${INSIGHT_API_URL}${endpoint}`, opts);
-
   const responseText = await response.text();
 
   try {
