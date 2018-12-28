@@ -3,7 +3,13 @@ import {INSIGHT_API_URL} from '../constants';
 const get = async (endpoint, opts) => {
   const response = await fetch(`${INSIGHT_API_URL}${endpoint}`, opts);
 
-  return await response.json();
+  const responseText = await response.text();
+
+  try {
+    return JSON.parse(responseText);
+  } catch (err) {
+    throw new Error(responseText);
+  }
 };
 
 const getAddress = address => get(`addr/${address}/?noTxList=1`);
