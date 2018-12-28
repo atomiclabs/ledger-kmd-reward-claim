@@ -1,6 +1,16 @@
 import {INSIGHT_API_URL} from '../constants';
 
-const get = async (endpoint, opts) => {
+const get = async (endpoint, postData) => {
+  const opts = {};
+
+  if (postData) {
+    opts.body = JSON.stringify(postData);
+    opts.headers = new Headers();
+    opts.headers.append('Content-Type', 'application/json');
+    opts.headers.append('Content-Length', opts.body.length);
+    opts.method = 'POST';
+  }
+
   const response = await fetch(`${INSIGHT_API_URL}${endpoint}`, opts);
 
   const responseText = await response.text();
@@ -14,18 +24,7 @@ const get = async (endpoint, opts) => {
 
 const getAddress = address => get(`addr/${address}/?noTxList=1`);
 
-const getUtxos = addresses => {
-  const body = JSON.stringify({addrs: addresses.join(',')});
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-  headers.append('Content-Length', body.length);
-
-  return get(`addrs/utxo`, {
-    method: 'POST',
-    body,
-    headers
-  });
-};
+const getUtxos = addresses => get(`addrs/utxo`, {addrs: addresses.join(',')});
 
 const getTransaction = txid => get(`tx/${txid}`);
 
@@ -42,18 +41,7 @@ const getTipTime = async () => {
   return block.time;
 }
 
-const broadcast = transaction => {
-  const body = JSON.stringify({rawtx: transaction});
-  const headers = new Headers();
-  headers.append('Content-Type', 'application/json');
-  headers.append('Content-Length', body.length);
-
-  return get('tx/send', {
-    method: 'POST',
-    body,
-    headers
-  });
-};
+const broadcast = transaction => get('tx/send', {rawtx: transaction});
 
 const blockchain = {
   get,
