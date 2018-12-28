@@ -42,6 +42,19 @@ const getTipTime = async () => {
   return block.time;
 }
 
+const broadcast = transaction => {
+  const body = JSON.stringify({rawtx: transaction});
+  const headers = new Headers();
+  headers.append('Content-Type', 'application/json');
+  headers.append('Content-Length', body.length);
+
+  return get('tx/send', {
+    method: 'POST',
+    body,
+    headers
+  });
+};
+
 const blockchain = {
   get,
   getAddress,
@@ -50,7 +63,8 @@ const blockchain = {
   getRawTransaction,
   getBestBlockHash,
   getBlock,
-  getTipTime
+  getTipTime,
+  broadcast
 };
 
 export default blockchain;

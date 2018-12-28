@@ -2,6 +2,7 @@ import React from 'react';
 import Utxos from './Utxos';
 import getKomodoRewards from './lib/get-komodo-rewards';
 import ledger from './lib/ledger';
+import blockchain from './lib/blockchain';
 import {SERVICE_FEE_ADDRESS, SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import {toBitcoin} from 'satoshi-bitcoin';
 import './Accounts.css';
@@ -33,8 +34,10 @@ class Account extends React.Component {
     }
 
     const rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
-
     console.log(rewardClaimTransaction);
+
+    const result = await blockchain.broadcast(rewardClaimTransaction);
+    console.log(result);
   };
 
   render() {
