@@ -5,13 +5,14 @@ import './Header.css';
 const Header = ({checkRewards, resetState, isCheckingRewards}) => (
   <nav className="Header navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div className="container">
+
       <div className="navbar-brand">
-      <div className="navbar-item">
-        <KmdIcon className="KmdIcon"/>
-      </div>
-      <h1 className="navbar-item">
-        <strong>Ledger KMD Reward Claim</strong>
-      </h1>
+        <div className="navbar-item">
+          <KmdIcon className="KmdIcon"/>
+        </div>
+        <h1 className="navbar-item">
+          <strong>Ledger KMD Reward Claim</strong>
+        </h1>
       </div>
 
       <div className="navbar-menu">
@@ -28,6 +29,7 @@ const Header = ({checkRewards, resetState, isCheckingRewards}) => (
           </div>
         </div>
       </div>
+
     </div>
   </nav>
 );
