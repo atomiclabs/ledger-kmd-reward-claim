@@ -1,9 +1,9 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import { ReactComponent as KmdIcon } from 'cryptocurrency-icons/svg/color/kmd.svg';
 import ledger from './lib/ledger';
 import accountDiscovery from './lib/account-discovery';
 import blockchain from './lib/blockchain';
+import Header from './Header';
 import Accounts from './Accounts';
 import Footer from './Footer';
 import './App.css';
@@ -62,34 +62,11 @@ class App extends React.Component {
 
     return (
       <div className="App">
-
-        <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" style={{boxShadow: '0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1)'}}>
-          <div className="container">
-            <div class="navbar-brand">
-            <div class="navbar-item">
-              <KmdIcon className="KmdIcon"/>
-            </div>
-            <h1 class="navbar-item">
-              <strong>Ledger KMD Reward Claim</strong>
-            </h1>
-            </div>
-
-            <div class="navbar-menu">
-              <div class="navbar-end">
-                <div class="navbar-item">
-                  <div class="buttons">
-                    <button className={`button is-primary ${isCheckingRewards && 'is-loading'}`} onClick={this.scanAddresses}>
-                      <strong>Check Rewards</strong>
-                    </button>
-                    <button className="button is-light" onClick={this.resetState}>
-                      Reset
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
+        <Header
+          checkRewards={this.scanAddresses}
+          resetState={this.resetState}
+          isCheckingRewards={isCheckingRewards}
+          />
 
         <section className="main">
           <Accounts
