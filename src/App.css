@@ -2,15 +2,17 @@
   font-family: Helvetica, Arial, 'Lucida Grande', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
-.App .wrapper {
-  position: relative;
+.App .main {
+  flex: 1;
+  padding-top: 5.4em;
 }
 
-.App .status {
-  display: inline-block;
-  position: absolute;
-  bottom: 0;
-  margin-left: 1em;
+.App .footer {
+  background: none;
+  padding: 3rem 1.5rem;
 }

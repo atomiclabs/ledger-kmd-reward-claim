@@ -1,5 +1,6 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
+import { ReactComponent as KmdIcon } from 'cryptocurrency-icons/svg/color/kmd.svg';
 import ledger from './lib/ledger';
 import accountDiscovery from './lib/account-discovery';
 import blockchain from './lib/blockchain';
@@ -17,6 +18,8 @@ class App extends React.Component {
       isCheckingRewards: false
     };
   }
+
+  resetState = () => this.setState(this.initialState);
 
   scanAddresses = async () => {
     this.setState({
@@ -58,27 +61,52 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <section className="hero">
-          <div className="hero-body">
-            <div className="container">
-              <h1 className="title">
-                Connect your Ledger and open the Komodo app on your device.
-              </h1>
-              <h2 className="subtitle">
-                <div className="wrapper">
-                  <button className={`button is-primary is-large ${isCheckingRewards && 'is-loading'}`} onClick={this.scanAddresses}>
-                    Check Rewards
-                  </button>
-                  <span className="status">{status && status}</span>
+
+        <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" style={{boxShadow: '0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1)'}}>
+          <div className="container">
+            <div class="navbar-brand">
+            <div class="navbar-item">
+              <KmdIcon className="KmdIcon"/>
+            </div>
+            <h1 class="navbar-item">
+              <strong>Ledger KMD Reward Claim</strong>
+            </h1>
+            </div>
+
+            <div class="navbar-menu">
+              <div class="navbar-end">
+                <div class="navbar-item">
+                  <div class="buttons">
+                    <button className={`button is-primary ${isCheckingRewards && 'is-loading'}`} onClick={this.scanAddresses}>
+                      <strong>Check Rewards</strong>
+                    </button>
+                    <button className="button is-light" onClick={this.resetState}>
+                      Reset
+                    </button>
+                  </div>
                 </div>
-              </h2>
+              </div>
             </div>
           </div>
+        </nav>
+
+        <section className="main">
+          <Accounts
+            utxos={utxos}
+            tiptime={tiptime}
+            />
         </section>
-        <Accounts
-          utxos={utxos}
-          tiptime={tiptime}
-          />
+
+
+        <footer class="footer">
+          <div class="content has-text-centered">
+            <p>
+              <strong>Ledger KMD Reward Claim</strong> by <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs">Atomic Labs</a>.
+              The <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs/komodo-ledger-reward-claim">source code</a> is licensed under <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs/komodo-ledger-reward-claim/blob/master/LICENSE">MIT</a>.
+            </p>
+          </div>
+        </footer>
+
       </div>
     );
   }
