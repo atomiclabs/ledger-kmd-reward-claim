@@ -1,9 +1,8 @@
 import React from 'react';
 import { ReactComponent as KmdIcon } from 'cryptocurrency-icons/svg/color/kmd.svg';
-import CheckRewardsButton from './CheckRewardsButton';
 import './Header.css';
 
-const Header = ({handleRewardData, resetState}) => (
+const Header = ({children}) => (
   <nav className="Header navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div className="container">
 
@@ -19,12 +18,7 @@ const Header = ({handleRewardData, resetState}) => (
       <div className="navbar-menu">
         <div className="navbar-end">
           <div className="navbar-item">
-            <div className="buttons">
-              <CheckRewardsButton handleRewardData={handleRewardData} />
-              <button className="button is-light" onClick={resetState}>
-                Reset
-              </button>
-            </div>
+            {children}
           </div>
         </div>
       </div>

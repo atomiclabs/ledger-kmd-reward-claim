@@ -1,6 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 import Header from './Header';
+import CheckRewardsButton from './CheckRewardsButton';
 import Accounts from './Accounts';
 import Footer from './Footer';
 import './App.css';
@@ -24,17 +25,27 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header
-          {...this.state}
-          handleRewardData={this.handleRewardData}
-          resetState={this.resetState}
-          />
+        <Header>
+          <div className="buttons">
+            <CheckRewardsButton handleRewardData={this.handleRewardData}>
+              <strong>Check Rewards</strong>
+            </CheckRewardsButton>
+            <button className="button is-light" onClick={this.resetState}>
+              Reset
+            </button>
+          </div>
+        </Header>
 
         <section className="main">
           <Accounts {...this.state} />
         </section>
 
-        <Footer />
+        <Footer>
+          <p>
+            <strong>Ledger KMD Reward Claim</strong> by <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs">Atomic Labs</a>.
+            The <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs/komodo-ledger-reward-claim">source code</a> is licensed under <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs/komodo-ledger-reward-claim/blob/master/LICENSE">MIT</a>.
+          </p>
+        </Footer>
       </div>
     );
   }

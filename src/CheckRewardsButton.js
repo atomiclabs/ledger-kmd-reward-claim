@@ -54,7 +54,7 @@ class CheckRewardsButton extends React.Component {
   render() {
     return (
       <button className={`button is-primary ${this.state.isCheckingRewards && 'is-loading'}`} onClick={this.scanAddresses}>
-        <strong>Check Rewards</strong>
+        {this.props.children}
       </button>
     );
   }
