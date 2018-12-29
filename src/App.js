@@ -58,21 +58,16 @@ class App extends React.Component {
   };
 
   render() {
-    const {isCheckingRewards, utxos, tiptime, status} = this.state;
-
     return (
       <div className="App">
         <Header
-          checkRewards={this.scanAddresses}
+          {...this.state}
+          scanAddresses={this.scanAddresses}
           resetState={this.resetState}
-          isCheckingRewards={isCheckingRewards}
           />
 
         <section className="main">
-          <Accounts
-            utxos={utxos}
-            tiptime={tiptime}
-            />
+          <Accounts {...this.state} />
         </section>
 
         <Footer />
