@@ -3,6 +3,7 @@ import {hot} from 'react-hot-loader';
 import Header from './Header';
 import CheckRewardsButton from './CheckRewardsButton';
 import Accounts from './Accounts';
+import WarnU2fCompatibility from './WarnU2fCompatibility';
 import Footer from './Footer';
 import './App.css';
 
@@ -39,6 +40,8 @@ class App extends React.Component {
         <section className="main">
           <Accounts {...this.state} />
         </section>
+
+        <WarnU2fCompatibility />
 
         <Footer>
           <p>

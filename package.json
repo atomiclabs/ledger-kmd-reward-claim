@@ -32,7 +32,8 @@
     "hash.js": "^1.1.7",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "satoshi-bitcoin": "^1.0.4"
+    "satoshi-bitcoin": "^1.0.4",
+    "u2f-api": "^1.0.9"
   },
   "devDependencies": {
     "react-app-rewire-hot-loader": "^1.0.3",
