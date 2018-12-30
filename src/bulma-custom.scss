@@ -8,4 +8,7 @@ $navbar-breakpoint: 0;
   }
 }
 
+// Cleaner box radiuses
+$box-radius: $radius-small;
+
 @import 'bulma/bulma.sass';
