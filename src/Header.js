@@ -1,6 +1,6 @@
 import React from 'react';
 import { ReactComponent as KmdIcon } from 'cryptocurrency-icons/svg/color/kmd.svg';
-import './Header.css';
+import './Header.scss';
 
 const Header = ({children}) => (
   <nav className="Header navbar is-fixed-top" role="navigation" aria-label="main navigation">

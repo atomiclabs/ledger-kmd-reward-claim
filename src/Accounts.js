@@ -5,8 +5,8 @@ import ledger from './lib/ledger';
 import blockchain from './lib/blockchain';
 import {SERVICE_FEE_ADDRESS, SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import {toBitcoin} from 'satoshi-bitcoin';
-import './Accounts.css';
-import './Account.css';
+import './Accounts.scss';
+import './Account.scss';
 
 class Account extends React.Component {
   getBalance = () => this.props.utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);

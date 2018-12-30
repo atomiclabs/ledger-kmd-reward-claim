@@ -2,6 +2,9 @@
 $komodo-brand: #326464;
 $primary: $komodo-brand;
 
+// Helvetica primary font
+$family-primary: Helvetica, Arial, 'Lucida Grande', sans-serif;
+
 // Don't collapse navbar on small screens
 $navbar-breakpoint: 0;
 .navbar {

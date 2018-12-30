@@ -1,12 +1,14 @@
+@import './bulma-custom.scss';
+
 .Account h2 .balance {
-  font-weight: 400;
+  font-weight: $weight-normal;
   font-size: 0.8em;
-  color: #868686;
+  color: $grey;
   margin-top: 0.2em;
 }
 
 .Account h2 small {
-  font-weight: 400;
+  font-weight: $weight-normal;
   font-size: 0.6em;
   color: inherit;
 }

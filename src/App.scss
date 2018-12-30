@@ -1,5 +1,7 @@
+@import './bulma-custom.scss';
+
 .App {
-  font-family: Helvetica, Arial, 'Lucida Grande', sans-serif;
+  font-family: $family-primary;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   display: flex;

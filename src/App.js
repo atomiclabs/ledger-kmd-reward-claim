@@ -5,7 +5,7 @@ import CheckRewardsButton from './CheckRewardsButton';
 import Accounts from './Accounts';
 import WarnU2fCompatibility from './WarnU2fCompatibility';
 import Footer from './Footer';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   state = this.initialState;
