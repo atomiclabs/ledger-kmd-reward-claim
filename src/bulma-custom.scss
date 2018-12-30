@@ -1,0 +1,11 @@
+@import 'bulma/sass/utilities/initial-variables.sass';
+
+// Don't collapse navbar on small screens
+$navbar-breakpoint: 0;
+@media screen and (max-width: $desktop - 1) {
+  .navbar {
+    padding: 0 1.5em;
+  }
+}
+
+@import 'bulma/bulma.sass';
