@@ -1,16 +1,15 @@
-@import 'bulma/sass/utilities/initial-variables.sass';
-
 // Use Komodo brand colours
 $komodo-brand: #326464;
 $primary: $komodo-brand;
 
 // Don't collapse navbar on small screens
 $navbar-breakpoint: 0;
-@media screen and (max-width: $desktop - 1) {
-  .navbar {
-    padding: 0 1.5em;
-  }
+.navbar {
+  padding: 0 1.5em;
 }
+
+// We need to import this before using computed variables
+@import 'bulma/sass/utilities/_all.sass';
 
 // Cleaner box radiuses
 $box-radius: $radius-small;
