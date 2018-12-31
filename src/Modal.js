@@ -1,7 +1,8 @@
 import React from 'react';
+import './Modal.scss';
 
 const Modal = ({children, title, show}) => (
-  <div className={`modal ${show ? 'is-active' : ''}`}>
+  <div className={`Modal modal ${show ? 'is-active' : ''}`}>
     <div className="modal-background"></div>
     <div className="modal-content">
       <div className="card">
