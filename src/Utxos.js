@@ -2,12 +2,7 @@ import React from 'react';
 import {toBitcoin} from 'satoshi-bitcoin';
 import getKomodoRewards from './lib/get-komodo-rewards';
 import humanRewardEndDate from './lib/human-reward-end-date';
-
-const Boolean = ({value}) => (
-  <span className={`icon has-text-${value ? 'success' : 'danger'}`}>
-    <i className={`fas fa-${value ? 'check' : 'times'}-circle`}></i>
-  </span>
-);
+import Boolean from './Boolean';
 
 const Utxos = ({utxos, tiptime}) => {
   const headings = ['Address', 'Value', 'Locktime', 'Rewards', 'Rewards Stop Accruing'];
