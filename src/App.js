@@ -38,7 +38,11 @@ class App extends React.Component {
         </Header>
 
         <section className="main">
-          <Accounts {...this.state} />
+          {this.state.utxos.length === 0 ? (
+            <img className="ledger-graphic" src="/ledger.png" alt="Ledger Nano S"/>
+          ) : (
+            <Accounts {...this.state} />
+          )}
         </section>
 
         <WarnU2fCompatibility />
