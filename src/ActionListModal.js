@@ -8,14 +8,14 @@ const ActionListModal = ({actions = [], error, ...modalProps}) => (
     <Modal {...modalProps}>
       <div className="panel">
         {Object.keys(actions).map(action => {
-          const {icon, text, state} = actions[action];
+          const {icon, description, state} = actions[action];
 
           return (
             <div key={action} className={`panel-block ${state === 'loading' ? 'is-active' : ''}`}>
               <span className="left-icon icon has-text-grey">
                 <i className={icon}></i>
               </span>
-                {text}
+                {description}
               <div className="right-icon">
                 {typeof state === 'boolean' ? (
                   <Boolean value={state} />

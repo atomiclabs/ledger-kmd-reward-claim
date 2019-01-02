@@ -14,12 +14,12 @@ class CheckRewardsButton extends React.Component {
       actions: {
         connect: {
           icon: 'fab fa-usb',
-          text: 'Connect and unlock your Ledger, then open the Komodo app on your device.',
+          description: <div>Connect and unlock your Ledger, then open the Komodo app on your device.</div>,
           state: null
         },
         approve: {
           icon: 'fas fa-microchip',
-          text: 'Approve all public key export requests on your device. There will be multiple requests.',
+          description: <div>Approve all public key export requests on your device. <strong>There will be multiple requests</strong>.</div>,
           state: null
         }
       }
