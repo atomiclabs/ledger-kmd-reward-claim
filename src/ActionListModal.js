@@ -5,7 +5,7 @@ import './ActionListModal.scss';
 
 const ActionListModal = ({actions = [], error, ...modalProps}) => (
   <div className="ActionListModal">
-    <Modal {...modalProps}>
+    <Modal isCloseable={error} {...modalProps}>
       <div className="panel">
         {Object.keys(actions).map(action => {
           const {icon, description, state} = actions[action];

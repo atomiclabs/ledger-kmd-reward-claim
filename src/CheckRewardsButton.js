@@ -11,6 +11,7 @@ class CheckRewardsButton extends React.Component {
   get initialState() {
     return {
       isCheckingRewards: false,
+      error: false,
       actions: {
         connect: {
           icon: 'fab fa-usb',
@@ -25,6 +26,8 @@ class CheckRewardsButton extends React.Component {
       }
     };
   }
+
+  resetState = () => this.setState(this.initialState);
 
   scanAddresses = async () => {
     this.setState(prevState => ({
@@ -84,6 +87,7 @@ class CheckRewardsButton extends React.Component {
           title="Scanning Blockchain for Rewards"
           actions={actions}
           error={error}
+          handleClose={this.resetState}
           show={isCheckingRewards} />
       </>
     );
