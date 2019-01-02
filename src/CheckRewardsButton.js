@@ -80,7 +80,7 @@ class CheckRewardsButton extends React.Component {
 
     return (
       <>
-        <button className={`button is-primary ${isCheckingRewards && 'is-loading'}`} onClick={this.scanAddresses}>
+        <button className="button is-primary" onClick={this.scanAddresses}>
           {this.props.children}
         </button>
         <ActionListModal
