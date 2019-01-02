@@ -3,7 +3,7 @@ import Modal from './Modal';
 import Boolean from './Boolean';
 import './ActionListModal.scss';
 
-const ActionListModal = ({actions = [], ...modalProps}) => (
+const ActionListModal = ({actions = [], error, ...modalProps}) => (
   <div className="ActionListModal">
     <Modal {...modalProps}>
       <div className="panel">
@@ -29,6 +29,13 @@ const ActionListModal = ({actions = [], ...modalProps}) => (
           );
         })}
       </div>
+
+      {error ? (
+        <div className="notification is-danger">
+          <strong>Error</strong>
+          <p>{error}</p>
+        </div>
+      ) : null}
     </Modal>
   </div>
 );

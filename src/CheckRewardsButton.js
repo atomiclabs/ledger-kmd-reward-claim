@@ -37,10 +37,12 @@ class CheckRewardsButton extends React.Component {
 
     const ledgerIsAvailable = await ledger.isAvailable();
     if (!ledgerIsAvailable) {
-      this.setState({
-        ...this.initialState,
-        status: 'Error: Ledger device is unavailable!'
-      });
+      this.setState(prevState => ({
+        actions: update(prevState.actions, {
+          connect: {state: {$set: false}},
+        }),
+        error: 'Ledger device is unavailable!'
+      }));
       return;
     }
 
@@ -61,15 +63,17 @@ class CheckRewardsButton extends React.Component {
 
       this.setState({...this.initialState});
     } catch (error) {
-      this.setState({
-        ...this.initialState,
-        status: `Error: ${error.message}`
-      });
+      this.setState(prevState => ({
+        actions: update(prevState.actions, {
+          approve: {state: {$set: false}},
+        }),
+        error: error.message
+      }));
     }
   };
 
   render() {
-    const {isCheckingRewards, actions} = this.state;
+    const {isCheckingRewards, actions, error} = this.state;
 
     return (
       <>
@@ -79,6 +83,7 @@ class CheckRewardsButton extends React.Component {
         <ActionListModal
           title="Scanning Blockchain for Rewards"
           actions={actions}
+          error={error}
           show={isCheckingRewards} />
       </>
     );
