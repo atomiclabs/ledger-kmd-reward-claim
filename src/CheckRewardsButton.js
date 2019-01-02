@@ -30,6 +30,11 @@ class CheckRewardsButton extends React.Component {
   resetState = () => this.setState(this.initialState);
 
   scanAddresses = async () => {
+    this.props.handleRewardData({
+      utxos: [],
+      tiptime: []
+    });
+
     this.setState(prevState => ({
       ...this.initialState,
       isCheckingRewards: true,
