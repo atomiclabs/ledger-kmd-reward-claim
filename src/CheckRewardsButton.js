@@ -52,15 +52,17 @@ class CheckRewardsButton extends React.Component {
     });
 
     updateActionState(this, 'connect', 'loading');
+
     const ledgerIsAvailable = await ledger.isAvailable();
     if (!ledgerIsAvailable) {
       updateActionState(this, 'connect', false);
       this.setState({error: 'Ledger device is unavailable!'});
       return;
     }
-    updateActionState(this, 'connect', true);
 
+    updateActionState(this, 'connect', true);
     updateActionState(this, 'approve', 'loading');
+
     let accounts, tiptime;
     try {
       [accounts, tiptime] = await Promise.all([
@@ -74,6 +76,7 @@ class CheckRewardsButton extends React.Component {
       this.setState({error: error.message});
       return;
     }
+    
     updateActionState(this, 'approve', true);
 
     this.props.handleRewardData({

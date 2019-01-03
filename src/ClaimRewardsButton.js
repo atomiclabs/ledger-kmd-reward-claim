@@ -50,6 +50,18 @@ class ClaimRewardsButton extends React.Component {
       externalNode
     } = this.props.account;
 
+    updateActionState(this, 'connect', 'loading');
+
+    const ledgerIsAvailable = await ledger.isAvailable();
+    if (!ledgerIsAvailable) {
+      updateActionState(this, 'connect', false);
+      this.setState({error: 'Ledger device is unavailable!'});
+      return;
+    }
+
+    updateActionState(this, 'connect', true);
+    updateActionState(this, 'approveTransaction', 'loading');
+
     const unusedAddressIndex = addresses.filter(address => !address.isChange).length;
     const unusedAddress = getAddress(externalNode.derive(unusedAddressIndex).publicKey);
 
@@ -61,16 +73,6 @@ class ClaimRewardsButton extends React.Component {
       outputs.push({address: SERVICE_FEE_ADDRESS, value: serviceFee})
     }
 
-    updateActionState(this, 'connect', 'loading');
-    const ledgerIsAvailable = await ledger.isAvailable();
-    if (!ledgerIsAvailable) {
-      updateActionState(this, 'connect', false);
-      this.setState({error: 'Ledger device is unavailable!'});
-      return;
-    }
-    updateActionState(this, 'connect', true);
-
-    updateActionState(this, 'approveTransaction', 'loading');
     let rewardClaimTransaction;
     try {
       rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
@@ -79,9 +81,10 @@ class ClaimRewardsButton extends React.Component {
       this.setState({error: error.message});
       return;
     }
-    updateActionState(this, 'approveTransaction', true);
 
+    updateActionState(this, 'approveTransaction', true);
     updateActionState(this, 'broadcastTransaction', 'loading');
+
     try {
       const result = await blockchain.broadcast(rewardClaimTransaction);
 
@@ -91,6 +94,7 @@ class ClaimRewardsButton extends React.Component {
       this.setState({error: error.message});
       return;
     }
+
     updateActionState(this, 'broadcastTransaction', true);
 
     this.setState({...this.initialState});
