@@ -61,8 +61,10 @@ class CheckRewardsButton extends React.Component {
       })
     }));
     try {
-      const accounts = await accountDiscovery();
-      const tiptime = await blockchain.getTipTime();
+      const [accounts, tiptime] = await Promise.all([
+        accountDiscovery(),
+        blockchain.getTipTime()
+      ]);
 
       this.props.handleRewardData({
         accounts,
