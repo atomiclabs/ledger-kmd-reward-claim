@@ -24,6 +24,8 @@ class Account extends React.Component {
     const derivationPath = `44'/141'/${account}'/0/${unusedAddressIndex}`;
     const unusedAddress = await ledger.getAddress(derivationPath);
 
+    console.log(unusedAddress);
+
     const outputs = [
       {address: unusedAddress, value: (this.getBalance() + this.getClaimableAmount())}
     ];
