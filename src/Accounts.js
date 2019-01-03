@@ -60,7 +60,7 @@ class Account extends React.Component {
               </>
             )}
             <ClaimRewardsButton account={account}>
-              Claim Rewards Component
+              Claim Rewards
             </ClaimRewardsButton>
           </div>
         </div>
