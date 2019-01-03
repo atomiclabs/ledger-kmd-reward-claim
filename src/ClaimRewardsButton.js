@@ -52,7 +52,6 @@ class ClaimRewardsButton extends React.Component {
 
     const unusedAddressIndex = addresses.filter(address => !address.isChange).length;
     const unusedAddress = getAddress(externalNode.derive(unusedAddressIndex).publicKey);
-    console.log(unusedAddress);
 
     const outputs = [
       {address: unusedAddress, value: (balance + claimableAmount)}
@@ -75,7 +74,6 @@ class ClaimRewardsButton extends React.Component {
     let rewardClaimTransaction;
     try {
       rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
-      console.log(rewardClaimTransaction);
     } catch (error) {
       updateActionState(this, 'approveTransaction', false);
       this.setState({error: error.message});
@@ -86,7 +84,6 @@ class ClaimRewardsButton extends React.Component {
     updateActionState(this, 'broadcastTransaction', 'loading');
     try {
       const result = await blockchain.broadcast(rewardClaimTransaction);
-      console.log(result);
 
       // this.props.handleRewardClaim();
     } catch (error) {
