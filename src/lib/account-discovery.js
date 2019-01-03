@@ -1,12 +1,7 @@
 import ledger from './ledger';
 import blockchain from './blockchain';
-import {KOMODO} from './../constants';
+import getAddress from './get-address';
 import bitcoin from 'bitcoinjs-lib';
-
-const getAddress = publicKey => bitcoin.payments.p2pkh({
-  pubkey: publicKey,
-  network: KOMODO
-}).address;
 
 const walkDerivationPath = async node => {
   const addressConcurrency = 10;
