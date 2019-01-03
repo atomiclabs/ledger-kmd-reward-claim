@@ -1,9 +1,9 @@
 import React from 'react';
-import update from 'immutability-helper';
 import ActionListModal from './ActionListModal';
 import ledger from './lib/ledger';
 import blockchain from './lib/blockchain';
 import getAddress from './lib/get-address';
+import updateActionState from './lib/update-action-state';
 import {SERVICE_FEE_ADDRESS} from './constants';
 
 class ClaimRewardsButton extends React.Component {
@@ -62,65 +62,41 @@ class ClaimRewardsButton extends React.Component {
       outputs.push({address: SERVICE_FEE_ADDRESS, value: serviceFee})
     }
 
-    this.setState(prevState => ({
-      actions: update(prevState.actions, {
-        connect: {state: {$set: 'loading'}},
-      })
-    }));
-
+    updateActionState(this, 'connect', 'loading');
     const ledgerIsAvailable = await ledger.isAvailable();
     if (!ledgerIsAvailable) {
-      this.setState(prevState => ({
-        actions: update(prevState.actions, {
-          connect: {state: {$set: false}},
-        }),
-        error: 'Ledger device is unavailable!'
-      }));
+      updateActionState(this, 'connect', false);
+      this.setState({error: 'Ledger device is unavailable!'});
       return;
     }
+    updateActionState(this, 'connect', true);
 
+    updateActionState(this, 'approveTransaction', 'loading');
     let rewardClaimTransaction;
     try {
-      this.setState(prevState => ({
-        actions: update(prevState.actions, {
-          connect: {state: {$set: true}},
-          approveTransaction: {state: {$set: 'loading'}}
-        })
-      }));
-
       rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
       console.log(rewardClaimTransaction);
     } catch (error) {
-      this.setState(prevState => ({
-        actions: update(prevState.actions, {
-          approveTransaction: {state: {$set: false}},
-        }),
-        error: error.message
-      }));
+      updateActionState(this, 'approveTransaction', false);
+      this.setState({error: error.message});
+      return;
     }
+    updateActionState(this, 'approveTransaction', true);
 
+    updateActionState(this, 'broadcastTransaction', 'loading');
     try {
-      this.setState(prevState => ({
-        actions: update(prevState.actions, {
-          approveTransaction: {state: {$set: true}},
-          broadcastTransaction: {state: {$set: 'loading'}}
-        })
-      }));
-
       const result = await blockchain.broadcast(rewardClaimTransaction);
       console.log(result);
 
       // this.props.handleRewardClaim();
-
-      this.setState({...this.initialState});
     } catch (error) {
-      this.setState(prevState => ({
-        actions: update(prevState.actions, {
-          broadcastTransaction: {state: {$set: false}},
-        }),
-        error: error.message
-      }));
+      updateActionState(this, 'broadcastTransaction', false);
+      this.setState({error: error.message});
+      return;
     }
+    updateActionState(this, 'broadcastTransaction', true);
+
+    this.setState({...this.initialState});
   };
 
   render() {
