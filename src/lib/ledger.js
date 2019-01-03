@@ -40,16 +40,27 @@ const createTransaction = async function(utxos, outputs) {
     return [tx, utxo.vout];
   }));
   const associatedKeysets = utxos.map(utxo => utxo.derivationPath);
+  const changePath = undefined;
   const outputScript = buildOutputScript(outputs);
   const unixtime = Math.floor(Date.now() / 1000);
   const lockTime = (unixtime - 777);
+  const sigHashType = undefined;
+  const segwit = undefined;
+  const initialTimestamp = undefined;
+  const additionals = undefined;
+  const expiryHeight = undefined;
 
   const transaction = await ledger.createPaymentTransactionNew(
     inputs,
     associatedKeysets,
-    undefined,
+    changePath,
     outputScript,
-    lockTime
+    lockTime,
+    sigHashType,
+    segwit,
+    initialTimestamp,
+    additionals,
+    expiryHeight
   );
 
   await ledger.close();
