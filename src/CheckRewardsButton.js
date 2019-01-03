@@ -3,6 +3,8 @@ import update from 'immutability-helper';
 import ledger from './lib/ledger';
 import accountDiscovery from './lib/account-discovery';
 import blockchain from './lib/blockchain';
+import getKomodoRewards from './lib/get-komodo-rewards';
+import {SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import ActionListModal from './ActionListModal';
 
 class CheckRewardsButton extends React.Component {
@@ -28,6 +30,15 @@ class CheckRewardsButton extends React.Component {
   }
 
   resetState = () => this.setState(this.initialState);
+
+  calculateRewardData = ({accounts, tiptime}) => accounts.map(account => {
+    account.balance = account.utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);
+    account.rewards = account.utxos.reduce((rewards, utxo) => rewards + getKomodoRewards({tiptime, ...utxo}), 0);
+    account.serviceFee = Math.floor((account.rewards / 100) * SERVICE_FEE_PERCENT);
+    account.claimableAmount = account.rewards - account.serviceFee - TX_FEE;
+
+    return account;
+  });
 
   scanAddresses = async () => {
     this.props.handleRewardData({
@@ -61,10 +72,12 @@ class CheckRewardsButton extends React.Component {
       })
     }));
     try {
-      const [accounts, tiptime] = await Promise.all([
+      let [accounts, tiptime] = await Promise.all([
         accountDiscovery(),
         blockchain.getTipTime()
       ]);
+
+      accounts = this.calculateRewardData({accounts, tiptime});
 
       this.props.handleRewardData({
         accounts,

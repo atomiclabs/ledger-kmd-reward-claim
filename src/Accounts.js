@@ -1,6 +1,5 @@
 import React from 'react';
 import Utxos from './Utxos';
-import getKomodoRewards from './lib/get-komodo-rewards';
 import ledger from './lib/ledger';
 import blockchain from './lib/blockchain';
 import getAddress from './lib/get-address';
@@ -10,33 +9,23 @@ import './Accounts.scss';
 import './Account.scss';
 
 class Account extends React.Component {
-  getBalance = () => this.props.account.utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);
-
-  getRewards = () => this.props.account.utxos.reduce((rewards, utxo) => rewards + getKomodoRewards({tiptime: this.props.tiptime, ...utxo}), 0);
-
-  getServiceFee = () => Math.floor((this.getRewards() / 100) * SERVICE_FEE_PERCENT);
-
-  getClaimableAmount = () => this.getRewards() - this.getServiceFee() - TX_FEE;
-
   claimRewards = async () => {
     const {account} = this.props;
-    const {utxos, addresses, externalNode} = account;
 
-    const unusedAddressIndex = addresses.filter(address => !address.isChange).length;
-    const unusedAddress = getAddress(externalNode.derive(unusedAddressIndex).publicKey);
+    const unusedAddressIndex = account.addresses.filter(address => !address.isChange).length;
+    const unusedAddress = getAddress(account.externalNode.derive(unusedAddressIndex).publicKey);
 
     console.log(unusedAddress);
 
     const outputs = [
-      {address: unusedAddress, value: (this.getBalance() + this.getClaimableAmount())}
+      {address: unusedAddress, value: (account.balance + account.claimableAmount)}
     ];
 
-    const serviceFee = this.getServiceFee();
-    if (serviceFee > 0) {
-      outputs.push({address: SERVICE_FEE_ADDRESS, value: serviceFee})
+    if (account.serviceFee > 0) {
+      outputs.push({address: SERVICE_FEE_ADDRESS, value: account.serviceFee})
     }
 
-    const rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
+    const rewardClaimTransaction = await ledger.createTransaction(account.utxos, outputs);
     console.log(rewardClaimTransaction);
 
     const result = await blockchain.broadcast(rewardClaimTransaction);
@@ -45,7 +34,7 @@ class Account extends React.Component {
 
   render() {
     const {accountIndex, account, tiptime} = this.props;
-    const isClaimableAmount = (this.getClaimableAmount() > 0);
+    const isClaimableAmount = (account.claimableAmount > 0);
 
     return (
       <div className="Account column is-full">
@@ -54,10 +43,10 @@ class Account extends React.Component {
             <h2>
               Account {accountIndex + 1}
               <div className="balance">
-                {toBitcoin(this.getBalance())} KMD
+                {toBitcoin(account.balance)} KMD
               </div>
               <small>
-                + {toBitcoin(Math.max(0, this.getClaimableAmount()))} KMD Claimable Rewards
+                + {toBitcoin(Math.max(0, account.claimableAmount))} KMD Claimable Rewards
               </small>
             </h2>
             <h4>UTXOs</h4>
@@ -68,11 +57,11 @@ class Account extends React.Component {
                 <table className="breakdown">
                   <tbody>
                     <tr>
-                      <td>{toBitcoin(this.getRewards())} KMD</td>
+                      <td>{toBitcoin(account.rewards)} KMD</td>
                       <td>Rewards accrued</td>
                     </tr>
                     <tr>
-                      <td>{toBitcoin(this.getServiceFee())} KMD</td>
+                      <td>{toBitcoin(account.serviceFee)} KMD</td>
                       <td>{SERVICE_FEE_PERCENT}% service fee</td>
                     </tr>
                     <tr>
@@ -80,7 +69,7 @@ class Account extends React.Component {
                       <td>Network transaction fee</td>
                     </tr>
                     <tr>
-                      <td><strong>{toBitcoin(this.getClaimableAmount())} KMD</strong></td>
+                      <td><strong>{toBitcoin(account.claimableAmount)} KMD</strong></td>
                       <td>Total claimable amount</td>
                     </tr>
                   </tbody>
