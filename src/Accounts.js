@@ -3,26 +3,27 @@ import Utxos from './Utxos';
 import getKomodoRewards from './lib/get-komodo-rewards';
 import ledger from './lib/ledger';
 import blockchain from './lib/blockchain';
+import getAddress from './lib/get-address';
 import {SERVICE_FEE_ADDRESS, SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import {toBitcoin} from 'satoshi-bitcoin';
 import './Accounts.scss';
 import './Account.scss';
 
 class Account extends React.Component {
-  getBalance = () => this.props.utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);
+  getBalance = () => this.props.account.utxos.reduce((balance, utxo) => balance + utxo.satoshis, 0);
 
-  getRewards = () => this.props.utxos.reduce((rewards, utxo) => rewards + getKomodoRewards({tiptime: this.props.tiptime, ...utxo}), 0);
+  getRewards = () => this.props.account.utxos.reduce((rewards, utxo) => rewards + getKomodoRewards({tiptime: this.props.tiptime, ...utxo}), 0);
 
   getServiceFee = () => Math.floor((this.getRewards() / 100) * SERVICE_FEE_PERCENT);
 
   getClaimableAmount = () => this.getRewards() - this.getServiceFee() - TX_FEE;
 
   claimRewards = async () => {
-    const {account, utxos} = this.props;
+    const {account} = this.props;
+    const {utxos, addresses, externalNode} = account;
 
-    const unusedAddressIndex = utxos.reduce((index, utxo) => (!utxo.isChange && utxo.addressIndex > index) ? utxo.addressIndex : index, 0) + 1;
-    const derivationPath = `44'/141'/${account}'/0/${unusedAddressIndex}`;
-    const unusedAddress = await ledger.getAddress(derivationPath);
+    const unusedAddressIndex = addresses.filter(address => !address.isChange).length;
+    const unusedAddress = getAddress(externalNode.derive(unusedAddressIndex).publicKey);
 
     console.log(unusedAddress);
 
@@ -43,7 +44,7 @@ class Account extends React.Component {
   };
 
   render() {
-    const {account, utxos, tiptime} = this.props;
+    const {accountIndex, account, tiptime} = this.props;
     const isClaimableAmount = (this.getClaimableAmount() > 0);
 
     return (
@@ -51,7 +52,7 @@ class Account extends React.Component {
         <div className="box">
           <div className="content">
             <h2>
-              Account {account + 1}
+              Account {accountIndex + 1}
               <div className="balance">
                 {toBitcoin(this.getBalance())} KMD
               </div>
@@ -60,7 +61,7 @@ class Account extends React.Component {
               </small>
             </h2>
             <h4>UTXOs</h4>
-            <Utxos utxos={utxos} tiptime={tiptime} />
+            <Utxos utxos={account.utxos} tiptime={tiptime} />
             {isClaimableAmount && (
               <>
                 <h4>Breakdown</h4>
@@ -96,25 +97,21 @@ class Account extends React.Component {
   }
 }
 
-const Accounts = ({utxos, tiptime}) => {
-  const accounts = [...new Set(utxos.map(utxo => utxo.account))].sort((a, b) => a - b);
-
-  return (
-    <div className="Accounts">
-      <div className="container">
-        <div className="columns is-multiline">
-          {accounts.map(account => (
-            <Account
-              key={account}
-              account={account}
-              tiptime={tiptime}
-              utxos={utxos.filter(utxo => utxo.account === account)}
-              />
-          ))}
-        </div>
+const Accounts = ({accounts, tiptime}) => (
+  <div className="Accounts">
+    <div className="container">
+      <div className="columns is-multiline">
+        {accounts.map((account, accountIndex) => (
+          <Account
+            key={accountIndex}
+            accountIndex={accountIndex}
+            account={account}
+            tiptime={tiptime}
+            />
+        ))}
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default Accounts;

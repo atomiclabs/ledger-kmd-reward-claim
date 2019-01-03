@@ -55,42 +55,54 @@ const getAccountAddresses = async account => {
     });
   };
 
-  return [
+  const addresses = [
     ...externalAddresses.map(addAddressMeta({isChange: false})),
     ...internalAddresses.map(addAddressMeta({isChange: true}))
   ];
-}
+
+  return {
+    externalNode,
+    internalNode,
+    addresses
+  };
+};
+
+const getAddressUtxos = async addresses => {
+  const utxos = await blockchain.getUtxos(addresses.map(a => a.address));
+
+  return await Promise.all(utxos.map(async utxo => {
+    const addressInfo = addresses.find(a => a.address === utxo.address);
+    const {rawtx} = await blockchain.getRawTransaction(utxo.txid);
+    const {locktime} = bitcoin.Transaction.fromHex(rawtx);
+
+    return {
+      id: `${utxo.txid}:${utxo.vout}`,
+      ...addressInfo,
+      ...utxo,
+      locktime,
+      rawtx
+    };
+  }));
+};
 
 const accountDiscovery = async () => {
-  let utxos = [];
-  let account = 0;
+  const accounts = [];
 
+  let accountIndex = 0;
   while (true) {
-    const accountAddresses = await getAccountAddresses(account);
-    if (accountAddresses.length === 0) {
+    const account = await getAccountAddresses(accountIndex);
+
+    if (account.addresses.length === 0) {
       break;
     }
 
-    const accountUtxos = await blockchain.getUtxos(accountAddresses.map(a => a.address));
-    const accountUtxosFormatted = await Promise.all(accountUtxos.map(async utxo => {
-      const addressInfo = accountAddresses.find(a => a.address === utxo.address);
-      const {rawtx} = await blockchain.getRawTransaction(utxo.txid);
-      const {locktime} = bitcoin.Transaction.fromHex(rawtx);
+    account.utxos = await getAddressUtxos(account.addresses);
 
-      return {
-        id: `${utxo.txid}:${utxo.vout}`,
-        ...addressInfo,
-        ...utxo,
-        locktime,
-        rawtx
-      };
-    }));
-    utxos = [...utxos, ...accountUtxosFormatted];
-
-    account++;
+    accounts.push(account);
+    accountIndex++;
   }
 
-  return utxos;
+  return accounts;
 };
 
 export default accountDiscovery;

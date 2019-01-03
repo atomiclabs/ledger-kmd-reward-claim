@@ -31,7 +31,7 @@ class CheckRewardsButton extends React.Component {
 
   scanAddresses = async () => {
     this.props.handleRewardData({
-      utxos: [],
+      accounts: [],
       tiptime: []
     });
 
@@ -61,11 +61,11 @@ class CheckRewardsButton extends React.Component {
       })
     }));
     try {
-      const utxos = await accountDiscovery();
+      const accounts = await accountDiscovery();
       const tiptime = await blockchain.getTipTime();
 
       this.props.handleRewardData({
-        utxos,
+        accounts,
         tiptime
       });
 

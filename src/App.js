@@ -12,15 +12,15 @@ class App extends React.Component {
 
   get initialState() {
     return {
-      utxos: [],
+      accounts: [],
       tiptime: null
     };
   }
 
   resetState = () => this.setState(this.initialState);
 
-  handleRewardData = ({utxos, tiptime}) => {
-    this.setState({utxos, tiptime});
+  handleRewardData = ({accounts, tiptime}) => {
+    this.setState({accounts, tiptime});
   };
 
   render() {
@@ -38,7 +38,7 @@ class App extends React.Component {
         </Header>
 
         <section className="main">
-          {this.state.utxos.length === 0 ? (
+          {this.state.accounts.length === 0 ? (
             <img className="ledger-graphic" src="/ledger.png" alt="Ledger Nano S"/>
           ) : (
             <Accounts {...this.state} />
