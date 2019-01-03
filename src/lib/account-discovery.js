@@ -72,8 +72,11 @@ const getAddressUtxos = async addresses => {
 
   return await Promise.all(utxos.map(async utxo => {
     const addressInfo = addresses.find(a => a.address === utxo.address);
-    const {rawtx} = await blockchain.getRawTransaction(utxo.txid);
-    const {locktime} = bitcoin.Transaction.fromHex(rawtx);
+
+    const [{rawtx}, {locktime}] = await Promise.all([
+      blockchain.getRawTransaction(utxo.txid),
+      blockchain.getTransaction(utxo.txid)
+    ]);
 
     return {
       id: `${utxo.txid}:${utxo.vout}`,
