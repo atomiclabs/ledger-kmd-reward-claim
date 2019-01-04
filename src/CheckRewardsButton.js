@@ -76,7 +76,7 @@ class CheckRewardsButton extends React.Component {
       this.setState({error: error.message});
       return;
     }
-    
+
     updateActionState(this, 'approve', true);
 
     this.props.handleRewardData({
@@ -100,7 +100,11 @@ class CheckRewardsButton extends React.Component {
           actions={actions}
           error={error}
           handleClose={this.resetState}
-          show={isCheckingRewards} />
+          show={isCheckingRewards}>
+          <p>
+            Exporting public keys from your Ledger device, scanning the blockchain for funds, and calculating any claimable rewards. Please approve any public key export requests on your device.
+          </p>
+        </ActionListModal>
       </>
     );
   }
