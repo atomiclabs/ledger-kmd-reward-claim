@@ -8766,6 +8766,11 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
+scientific-to-decimal@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/scientific-to-decimal/-/scientific-to-decimal-1.1.1.tgz#8696c9142ae7eba5efdb0ae80ae12f73e3d331c7"
+  integrity sha1-hpbJFCrn66Xv2wroCuEvc+PTMcc=
+
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"

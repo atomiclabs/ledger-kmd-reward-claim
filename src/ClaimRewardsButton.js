@@ -1,10 +1,10 @@
 import React from 'react';
-import {toBitcoin} from 'satoshi-bitcoin';
 import ActionListModal from './ActionListModal';
 import ledger from './lib/ledger';
 import blockchain from './lib/blockchain';
 import getAddress from './lib/get-address';
 import updateActionState from './lib/update-action-state';
+import humanReadableSatoshis from './lib/human-readable-satoshis';
 import {SERVICE_FEE_PERCENT, SERVICE_FEE_ADDRESS} from './constants';
 
 class ClaimRewardsButton extends React.Component {
@@ -68,7 +68,7 @@ class ClaimRewardsButton extends React.Component {
       accountIndex,
       utxos,
     } = this.props.account;
-    
+
     this.setState(prevState => ({
       ...this.initialState,
       isClaimingRewards: true,
@@ -132,9 +132,9 @@ class ClaimRewardsButton extends React.Component {
           handleClose={this.resetState}
           show={isClaimingRewards}>
           <p>
-            You should receive a total of {toBitcoin(userOutput.value)} KMD to a new unused address: <strong>{userOutput.address}</strong><br />
+            You should receive a total of {humanReadableSatoshis(userOutput.value)} KMD to a new unused address: <strong>{userOutput.address}</strong><br />
             {feeOutput ? (
-              <>There will also be a {SERVICE_FEE_PERCENT}% service fee of {toBitcoin(feeOutput.value)} KMD to: <strong>{feeOutput.address}</strong></>
+              <>There will also be a {SERVICE_FEE_PERCENT}% service fee of {humanReadableSatoshis(feeOutput.value)} KMD to: <strong>{feeOutput.address}</strong></>
             ) : null}
           </p>
         </ActionListModal>

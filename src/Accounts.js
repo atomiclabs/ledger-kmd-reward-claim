@@ -2,7 +2,7 @@ import React from 'react';
 import Utxos from './Utxos';
 import ClaimRewardsButton from './ClaimRewardsButton';
 import {SERVICE_FEE_PERCENT, TX_FEE} from './constants';
-import {toBitcoin} from 'satoshi-bitcoin';
+import humanReadableSatoshis from './lib/human-readable-satoshis';
 import './Accounts.scss';
 import './Account.scss';
 
@@ -27,10 +27,10 @@ class Account extends React.Component {
             <h2>
               Account {accountIndex + 1}
               <div className="balance">
-                {toBitcoin(balance)} KMD
+                {humanReadableSatoshis(balance)} KMD
               </div>
               <small>
-                + {toBitcoin(Math.max(0, claimableAmount))} KMD Claimable Rewards
+                + {humanReadableSatoshis(Math.max(0, claimableAmount))} KMD Claimable Rewards
               </small>
             </h2>
             <h4>UTXOs</h4>
@@ -41,19 +41,19 @@ class Account extends React.Component {
                 <table className="breakdown">
                   <tbody>
                     <tr>
-                      <td>{toBitcoin(rewards)} KMD</td>
+                      <td>{humanReadableSatoshis(rewards)} KMD</td>
                       <td>Rewards accrued</td>
                     </tr>
                     <tr>
-                      <td>{toBitcoin(serviceFee)} KMD</td>
+                      <td>{humanReadableSatoshis(serviceFee)} KMD</td>
                       <td>{SERVICE_FEE_PERCENT}% service fee</td>
                     </tr>
                     <tr>
-                      <td>{toBitcoin(TX_FEE)} KMD</td>
+                      <td>{humanReadableSatoshis(TX_FEE)} KMD</td>
                       <td>Network transaction fee</td>
                     </tr>
                     <tr>
-                      <td><strong>{toBitcoin(claimableAmount)} KMD</strong></td>
+                      <td><strong>{humanReadableSatoshis(claimableAmount)} KMD</strong></td>
                       <td>Total claimable amount</td>
                     </tr>
                   </tbody>
