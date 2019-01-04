@@ -100,6 +100,7 @@ const accountDiscovery = async () => {
     }
 
     account.utxos = await getAddressUtxos(account.addresses);
+    account.accountIndex = accountIndex;
 
     accounts.push(account);
     accountIndex++;

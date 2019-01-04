@@ -8,8 +8,9 @@ import './Account.scss';
 
 class Account extends React.Component {
   render() {
-    const {accountIndex, account, tiptime} = this.props;
+    const {account, tiptime} = this.props;
     const {
+      accountIndex,
       utxos,
       balance,
       rewards,
@@ -73,10 +74,9 @@ const Accounts = ({accounts, tiptime}) => (
   <div className="Accounts">
     <div className="container">
       <div className="columns is-multiline">
-        {accounts.map((account, accountIndex) => (
+        {accounts.map((account) => (
           <Account
-            key={accountIndex}
-            accountIndex={accountIndex}
+            key={account.accountIndex}
             account={account}
             tiptime={tiptime}
             />
