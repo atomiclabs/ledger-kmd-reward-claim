@@ -64,73 +64,55 @@ class ClaimRewardsButton extends React.Component {
   };
 
   claimRewards = async () => {
+    const {
+      accountIndex,
+      utxos,
+    } = this.props.account;
+    
     this.setState(prevState => ({
       ...this.initialState,
       isClaimingRewards: true,
     }));
 
-    const {
-      accountIndex,
-      utxos,
-    } = this.props.account;
-
-    updateActionState(this, 'connect', 'loading');
-
-    const ledgerIsAvailable = await ledger.isAvailable();
-    if (!ledgerIsAvailable) {
-      updateActionState(this, 'connect', false);
-      this.setState({error: 'Ledger device is unavailable!'});
-      return;
-    }
-
-    updateActionState(this, 'connect', true);
-    updateActionState(this, 'confirmAddress', 'loading');
-
-    const unusedAddress = this.getUnusedAddress();
-
+    let currentAction;
     try {
+      currentAction = 'connect';
+      updateActionState(this, currentAction, 'loading');
+      const ledgerIsAvailable = await ledger.isAvailable();
+      if (!ledgerIsAvailable) {
+        throw new Error('Ledger device is unavailable!');
+      }
+      updateActionState(this, currentAction, true);
+
+      currentAction = 'confirmAddress';
+      updateActionState(this, currentAction, 'loading');
+      const unusedAddress = this.getUnusedAddress();
       const derivationPath = `44'/141'/${accountIndex}'/0/${this.getUnusedAddressIndex()}`;
       const verify = true;
       const ledgerUnusedAddress = await ledger.getAddress(derivationPath, verify);
       if(ledgerUnusedAddress !== unusedAddress) {
         throw new Error(`Ledger derived address "${ledgerUnusedAddress}" doesn't match browser derived address "${unusedAddress}"`);
       }
-    } catch (error) {
-      updateActionState(this, 'confirmAddress', false);
-      this.setState({error: error.message});
-      return;
-    }
+      updateActionState(this, currentAction, true);
 
-    updateActionState(this, 'confirmAddress', true);
-    updateActionState(this, 'approveTransaction', 'loading');
+      currentAction = 'approveTransaction';
+      updateActionState(this, currentAction, 'loading');
+      const outputs = this.getOutputs();
+      const rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
+      updateActionState(this, currentAction, true);
 
-    const outputs = this.getOutputs();
-
-    let rewardClaimTransaction;
-    try {
-      rewardClaimTransaction = await ledger.createTransaction(utxos, outputs);
-    } catch (error) {
-      updateActionState(this, 'approveTransaction', false);
-      this.setState({error: error.message});
-      return;
-    }
-
-    updateActionState(this, 'approveTransaction', true);
-    updateActionState(this, 'broadcastTransaction', 'loading');
-
-    try {
+      currentAction = 'broadcastTransaction';
+      updateActionState(this, currentAction, 'loading');
       const result = await blockchain.broadcast(rewardClaimTransaction);
+      updateActionState(this, currentAction, true);
 
       // this.props.handleRewardClaim();
+
+      this.setState({...this.initialState});
     } catch (error) {
-      updateActionState(this, 'broadcastTransaction', false);
+      updateActionState(this, currentAction, false);
       this.setState({error: error.message});
-      return;
     }
-
-    updateActionState(this, 'broadcastTransaction', true);
-
-    this.setState({...this.initialState});
   };
 
   render() {
