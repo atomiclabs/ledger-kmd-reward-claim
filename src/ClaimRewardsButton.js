@@ -132,9 +132,9 @@ class ClaimRewardsButton extends React.Component {
           handleClose={this.resetState}
           show={isClaimingRewards}>
           <p>
-            You should receive a total of {humanReadableSatoshis(userOutput.value)} KMD to a new unused address: <strong>{userOutput.address}</strong><br />
+            You should receive a total of <strong>{humanReadableSatoshis(userOutput.value)} KMD</strong> to the new unused address: <strong>{userOutput.address}</strong><br />
             {feeOutput ? (
-              <>There will also be a {SERVICE_FEE_PERCENT}% service fee of {humanReadableSatoshis(feeOutput.value)} KMD to: <strong>{feeOutput.address}</strong></>
+              <>There will also be a {SERVICE_FEE_PERCENT}% service fee of <strong>{humanReadableSatoshis(feeOutput.value)} KMD</strong> to: <strong>{feeOutput.address}</strong></>
             ) : null}
           </p>
         </ActionListModal>
