@@ -47,7 +47,7 @@ const createTransaction = async function(utxos, outputs) {
   const sigHashType = undefined;
   const segwit = undefined;
   const initialTimestamp = undefined;
-  const additionals = undefined;
+  const additionals = ['sapling'];
   const expiryHeight = undefined;
 
   const transaction = await ledger.createPaymentTransactionNew(
