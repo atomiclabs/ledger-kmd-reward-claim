@@ -2634,10 +2634,10 @@ create-hmac@^1.1.0, create-hmac@^1.1.2, create-hmac@^1.1.3, create-hmac@^1.1.4, 
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
-create-xpub@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/create-xpub/-/create-xpub-1.0.1.tgz#28dd41f16d419c62671d42ff9edd5ce45ba742c0"
-  integrity sha512-GzSfXdmxYGRN/tGLz3VnMg5794CRPrnsqnzr04GgTtZnbrDV9JgBC6zbqx2ACcmbjrEiE3SfFS1p3mcyWwvbbw==
+create-xpub@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/create-xpub/-/create-xpub-2.0.2.tgz#8da46ff4d7b89ff05b330bd160f0ec2e16aeb85c"
+  integrity sha512-lYrRfkpcbXVNhQMTYHLSDSlx5V/4WhBMoIWVqlLq0iXhSxfgDbfYhir5/GA66ERFDNt8LaMAbR/+j0SVqjJpiQ==
   dependencies:
     bs58check "^2.1.2"
     hash.js "^1.1.7"
