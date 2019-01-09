@@ -39,7 +39,7 @@ class App extends React.Component {
 
         <section className="main">
           {this.state.accounts.length === 0 ? (
-            <img className="ledger-graphic" src="/ledger.svg" alt="Ledger Nano S"/>
+            <img className="ledger-graphic" src="ledger.svg" alt="Ledger Nano S"/>
           ) : (
             <Accounts {...this.state} />
           )}
