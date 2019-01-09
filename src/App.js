@@ -5,6 +5,7 @@ import CheckRewardsButton from './CheckRewardsButton';
 import Accounts from './Accounts';
 import WarnU2fCompatibility from './WarnU2fCompatibility';
 import Footer from './Footer';
+import {repository} from '../package.json';
 import './App.scss';
 
 class App extends React.Component {
@@ -50,7 +51,7 @@ class App extends React.Component {
         <Footer>
           <p>
             <strong>Ledger KMD Reward Claim</strong> by <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs">Atomic Labs</a>.
-            The <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs/komodo-ledger-reward-claim">source code</a> is licensed under <a target="_blank" rel="noopener noreferrer" href="https://github.com/atomiclabs/komodo-ledger-reward-claim/blob/master/LICENSE">MIT</a>.
+            The <a target="_blank" rel="noopener noreferrer" href={`https://github.com/${repository}`}>source code</a> is licensed under <a target="_blank" rel="noopener noreferrer" href={`https://github.com/${repository}/blob/master/LICENSE`}>MIT</a>.
           </p>
         </Footer>
       </div>
