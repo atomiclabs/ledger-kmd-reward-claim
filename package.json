@@ -1,12 +1,16 @@
 {
-  "name": "ledger-kmd-rewards",
+  "name": "ledger-kmd-reward-claim",
   "version": "0.1.0",
   "author": "Luke Childs <lukechilds123@gmail.com> (http://lukechilds.co.uk)",
+  "repository": "atomiclabs/ledger-kmd-reward-claim",
+  "homepage" : "https://atomiclabs.github.io/ledger-kmd-reward-claim",
   "license": "MIT",
   "private": true,
   "scripts": {
     "start": "HTTPS=true react-app-rewired start",
     "build": "react-app-rewired build",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject"
   },
@@ -37,6 +41,7 @@
     "u2f-api": "^1.0.9"
   },
   "devDependencies": {
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.11.0",
     "react-app-rewire-hot-loader": "^1.0.3",
     "react-app-rewired": "^1.6.2",
