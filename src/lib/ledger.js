@@ -36,7 +36,18 @@ const createTransaction = async function(utxos, outputs) {
   const ledger = await getDevice();
 
   const inputs = await Promise.all(utxos.map(async utxo => {
-    const tx = await ledger.splitTransaction(utxo.rawtx);
+    const transactionHex = utxo.rawtx;
+    const isSegwitSupported = undefined;
+    const hasTimestamp = undefined;
+    const hasExtraData = true;
+    const additionals = ['sapling'];
+    const tx = await ledger.splitTransaction(
+      transactionHex,
+      isSegwitSupported,
+      hasTimestamp,
+      hasExtraData,
+      additionals
+    );
     return [tx, utxo.vout];
   }));
   const associatedKeysets = utxos.map(utxo => utxo.derivationPath);
@@ -49,7 +60,7 @@ const createTransaction = async function(utxos, outputs) {
   const segwit = undefined;
   const initialTimestamp = undefined;
   const additionals = ['sapling'];
-  const expiryHeight = undefined;
+  const expiryHeight = Buffer.from([0x00, 0x00, 0x00, 0x00]);
 
   const transaction = await ledger.createPaymentTransactionNew(
     inputs,
