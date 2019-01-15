@@ -7,7 +7,6 @@ import Boolean from './Boolean';
 const Utxos = ({utxos, tiptime}) => {
   const headings = ['Address', 'Value', 'Locktime', 'Rewards', 'Rewards Stop Accruing'];
 
-
   return (
     <table className="table is-striped">
       <thead>
