@@ -33,8 +33,12 @@ class Account extends React.Component {
                 + {humanReadableSatoshis(Math.max(0, claimableAmount))} KMD Claimable Rewards
               </small>
             </h2>
-            <h4>UTXOs</h4>
-            <Utxos utxos={utxos} tiptime={tiptime} />
+            {(utxos.length > 0) && (
+              <>
+                <h4>UTXOs</h4>
+                <Utxos utxos={utxos} tiptime={tiptime} />
+              </>
+            )}
             {isClaimableAmount && (
               <>
                 <h4>Breakdown</h4>
