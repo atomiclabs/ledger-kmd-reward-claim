@@ -831,10 +831,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.6.0.tgz#7d7624cdb0ef2edd8a91baa193398e6ad16cb21c"
   integrity sha512-cB426XiX7R421kL8XnTWXlBUzeOYWl63KTUw1wP3fnmNBCuWeLGqglmZGheu0TClBSHZl5HVnKQ0uFFRtn43JQ==
 
-"@ledgerhq/hw-app-btc@^4.32.0":
-  version "4.32.0"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-app-btc/-/hw-app-btc-4.32.0.tgz#e883dcaa3ebb4aca1e2cb27acfc47b8db4e85f3f"
-  integrity sha512-N/RxtkPVjTDwU+lDPQQE7+4YQMXaXStDrpufQbDn0NXoaJ8KgY+QGkOH6bkuwV+LQvc7rEaM7E3p7/t58KJpMg==
+"@ledgerhq/hw-app-btc@^4.33.6":
+  version "4.33.6"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/hw-app-btc/-/hw-app-btc-4.33.6.tgz#e875ab9be37fe40bfc2bd30274d94309574c5fb8"
+  integrity sha512-/GyH+tcI7Gj10HAYH8Bg2qwS65jfXhBMibv+61CzNUYybiILD+A/AdjyIPX+bgGXBQi/PhoEjbrrxU9OOKn5Eg==
   dependencies:
     "@ledgerhq/hw-transport" "^4.32.0"
     create-hash "^1.1.3"

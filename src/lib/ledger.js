@@ -53,9 +53,8 @@ const createTransaction = async function(utxos, outputs) {
   const associatedKeysets = utxos.map(utxo => utxo.derivationPath);
   const changePath = undefined;
   const outputScript = buildOutputScript(outputs);
-  // const unixtime = Math.floor(Date.now() / 1000);
-  // const lockTime = (unixtime - 777);
-  const lockTime = undefined;
+  const unixtime = Math.floor(Date.now() / 1000);
+  const lockTime = (unixtime - 777);
   const sigHashType = undefined;
   const segwit = undefined;
   const initialTimestamp = undefined;
