@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "author": "Luke Childs <lukechilds123@gmail.com> (http://lukechilds.co.uk)",
   "repository": "atomiclabs/ledger-kmd-reward-claim",
-  "homepage" : ".",
+  "homepage": ".",
   "license": "MIT",
   "private": true,
   "scripts": {
