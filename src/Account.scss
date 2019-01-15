@@ -1,5 +1,9 @@
 @import './bulma-custom.scss';
 
+.Account.is-claimed {
+  opacity: 0.5;
+}
+
 .Account h2 .balance {
   font-weight: $weight-normal;
   font-size: 0.8em;

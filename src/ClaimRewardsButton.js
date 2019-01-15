@@ -103,10 +103,10 @@ class ClaimRewardsButton extends React.Component {
 
       currentAction = 'broadcastTransaction';
       updateActionState(this, currentAction, 'loading');
-      const result = await blockchain.broadcast(rewardClaimTransaction);
+      const {txid} = await blockchain.broadcast(rewardClaimTransaction);
       updateActionState(this, currentAction, true);
 
-      // this.props.handleRewardClaim();
+      this.props.handleRewardClaim(txid);
 
       this.setState({...this.initialState});
     } catch (error) {
@@ -122,7 +122,7 @@ class ClaimRewardsButton extends React.Component {
 
     return (
       <>
-        <button className="button is-primary" disabled={!isClaimableAmount} onClick={this.claimRewards}>
+        <button className="button is-primary" disabled={this.props.isClaimed || !isClaimableAmount} onClick={this.claimRewards}>
           {this.props.children}
         </button>
         <ActionListModal

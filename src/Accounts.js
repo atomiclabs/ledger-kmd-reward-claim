@@ -1,12 +1,28 @@
 import React from 'react';
 import Utxos from './Utxos';
 import ClaimRewardsButton from './ClaimRewardsButton';
-import {SERVICE_FEE_PERCENT, TX_FEE} from './constants';
+import {SERVICE_FEE_PERCENT, TX_FEE, INSIGHT_EXPLORER_URL} from './constants';
 import humanReadableSatoshis from './lib/human-readable-satoshis';
 import './Accounts.scss';
 import './Account.scss';
 
 class Account extends React.Component {
+  state = this.initialState;
+
+  get initialState() {
+    return {
+      isClaimed: false,
+      claimTxid: null
+    };
+  }
+
+  handleRewardClaim = txid => {
+    this.setState({
+      isClaimed: true,
+      claimTxid: txid
+    });
+  };
+
   render() {
     const {account, tiptime} = this.props;
     const {
@@ -19,9 +35,10 @@ class Account extends React.Component {
     } = account;
 
     const isClaimableAmount = (claimableAmount > 0);
+    const {isClaimed, claimTxid} = this.state;
 
     return (
-      <div className="Account column is-full">
+      <div className={`Account column is-full ${isClaimed ? 'is-claimed' : ''}`}>
         <div className="box">
           <div className="content">
             <h2>
@@ -64,7 +81,12 @@ class Account extends React.Component {
                 </table>
               </>
             )}
-            <ClaimRewardsButton account={account}>
+            {(isClaimed && claimTxid) && (
+              <div className="is-pulled-right">
+                Claim TXID: <a target="_blank" rel="noopener noreferrer" href={`${INSIGHT_EXPLORER_URL}tx/${claimTxid}`}>{claimTxid}</a>
+              </div>
+            )}
+            <ClaimRewardsButton account={account} handleRewardClaim={this.handleRewardClaim} isClaim={this.state.isClaimed}>
               Claim Rewards
             </ClaimRewardsButton>
           </div>
