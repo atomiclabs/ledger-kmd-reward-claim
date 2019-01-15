@@ -1,5 +1,6 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
+import {isEqual} from 'lodash';
 import Header from './Header';
 import CheckRewardsButton from './CheckRewardsButton';
 import Accounts from './Accounts';
@@ -32,7 +33,7 @@ class App extends React.Component {
             <CheckRewardsButton handleRewardData={this.handleRewardData}>
               <strong>Check Rewards</strong>
             </CheckRewardsButton>
-            <button className="button is-light" onClick={this.resetState}>
+            <button className="button is-light" disabled={isEqual(this.state, this.initialState)} onClick={this.resetState}>
               Reset
             </button>
           </div>
