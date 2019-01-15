@@ -3,9 +3,9 @@ import Modal from './Modal';
 import Boolean from './Boolean';
 import './ActionListModal.scss';
 
-const ActionListModal = ({children, actions = [], error, ...modalProps}) => (
+const ActionListModal = ({children, actions = [], error, success, ...modalProps}) => (
   <div className="ActionListModal">
-    <Modal isCloseable={error} {...modalProps}>
+    <Modal isCloseable={error || success} {...modalProps}>
       {children}
       <div className="panel">
         {Object.keys(actions).map(action => {
@@ -35,6 +35,13 @@ const ActionListModal = ({children, actions = [], error, ...modalProps}) => (
         <div className="notification is-danger">
           <strong>Error</strong>
           <p>{error}</p>
+        </div>
+      ) : null}
+
+      {success ? (
+        <div className="notification is-success">
+          <strong>Success</strong>
+          <p>{success}</p>
         </div>
       ) : null}
     </Modal>

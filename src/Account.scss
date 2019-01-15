@@ -1,6 +1,6 @@
 @import './bulma-custom.scss';
 
-.Account.is-claimed {
+.Account.is-claimed > .box > .content > :not(.ActionListModal) {
   opacity: 0.5;
 }
 

@@ -1,7 +1,8 @@
 import React from 'react';
 import Utxos from './Utxos';
 import ClaimRewardsButton from './ClaimRewardsButton';
-import {SERVICE_FEE_PERCENT, TX_FEE, INSIGHT_EXPLORER_URL} from './constants';
+import TxidLink from './TxidLink';
+import {SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import humanReadableSatoshis from './lib/human-readable-satoshis';
 import './Accounts.scss';
 import './Account.scss';
@@ -83,10 +84,10 @@ class Account extends React.Component {
             )}
             {(isClaimed && claimTxid) && (
               <div className="is-pulled-right">
-                Claim TXID: <a target="_blank" rel="noopener noreferrer" href={`${INSIGHT_EXPLORER_URL}tx/${claimTxid}`}>{claimTxid}</a>
+                Claim TXID: <TxidLink txid={claimTxid}/>
               </div>
             )}
-            <ClaimRewardsButton account={account} handleRewardClaim={this.handleRewardClaim} isClaim={this.state.isClaimed}>
+            <ClaimRewardsButton account={account} handleRewardClaim={this.handleRewardClaim} isClaimed={this.state.isClaimed}>
               Claim Rewards
             </ClaimRewardsButton>
           </div>

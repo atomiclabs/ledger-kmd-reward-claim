@@ -1,5 +1,6 @@
 import React from 'react';
 import ActionListModal from './ActionListModal';
+import TxidLink from './TxidLink';
 import ledger from './lib/ledger';
 import blockchain from './lib/blockchain';
 import getAddress from './lib/get-address';
@@ -14,6 +15,7 @@ class ClaimRewardsButton extends React.Component {
     return {
       isClaimingRewards: false,
       error: false,
+      success: false,
       actions: {
         connect: {
           icon: 'fab fa-usb',
@@ -107,8 +109,9 @@ class ClaimRewardsButton extends React.Component {
       updateActionState(this, currentAction, true);
 
       this.props.handleRewardClaim(txid);
-
-      this.setState({...this.initialState});
+      this.setState({
+        success: <>Claim TXID: <TxidLink txid={txid}/></>
+      });
     } catch (error) {
       updateActionState(this, currentAction, false);
       this.setState({error: error.message});
@@ -116,7 +119,7 @@ class ClaimRewardsButton extends React.Component {
   };
 
   render() {
-    const {isClaimingRewards, actions, error} = this.state;
+    const {isClaimingRewards} = this.state;
     const isClaimableAmount = (this.props.account.claimableAmount > 0);
     const [userOutput, feeOutput] = this.getOutputs();
 
@@ -126,9 +129,8 @@ class ClaimRewardsButton extends React.Component {
           {this.props.children}
         </button>
         <ActionListModal
+          {...this.state}
           title="Claiming Rewards"
-          actions={actions}
-          error={error}
           handleClose={this.resetState}
           show={isClaimingRewards}>
           <p>
