@@ -69,6 +69,9 @@ class CheckRewardsButton extends React.Component {
       ]);
 
       accounts = this.calculateRewardData({accounts, tiptime});
+      if (accounts.length === 0) {
+        throw new Error('No account balances found.');
+      }
       updateActionState(this, currentAction, true);
 
       this.props.handleRewardData({
