@@ -44,5 +44,5 @@ If consolidating the UTXOs is an issue for you and you'd like a solution that do
 
 ## License
 
-MIT © Atomic Labs
+MIT © Atomic Labs<br />
 MIT © Luke Childs
