@@ -53,6 +53,30 @@ We don't blacklist any specific browsers, we detect compatibility for the U2F AP
 
 You can view a list of U2F supporting browsers at [caniuse.com/#feat=u2f](https://caniuse.com/#feat=u2f).
 
+## Credits
+
+While this app was built by Atomic Labs, many community members were a great help.
+
+### Reference reward calculation code
+
+- jl777 (C++)
+- pbca26 (JavaScript)
+- CHMEX (PHP)
+
+### Consultation
+
+- jl777
+- ComputerGenie
+- jorian
+
+### Testing
+
+- zatJUM
+- TonyL
+- SHossain
+
+If you feel you've contributed and aren't listed here, please let us know.
+
 ## License
 
 MIT © Atomic Labs<br />
