@@ -18,6 +18,7 @@
 - [I get an error signing or broadcasting my claim transaction, what went wrong?](#i-get-an-error-signing-or-broadcasting-my-claim-transaction-what-went-wrong)
 - [Why do all my funds get sent back to a new address?](#why-do-all-my-funds-get-sent-back-to-a-new-address)
 - [My browser is unsupported, can you support it?](#my-browser-is-unsupported-can-you-support-it)
+- [I see a really high transaction fee on the Ledger device, why?](#i-see-a-really-high-transaction-fee-on-the-ledger-device-why)
 
 ### Why do I have to pay a 5% fee?
 
@@ -52,6 +53,12 @@ If consolidating the UTXOs is an issue for you and you'd like a solution that do
 We don't blacklist any specific browsers, we detect compatibility for the U2F API which is required to communicate with the Ledger. If the browser doesn't support the U2F API then we show an "Unsupported Browser" dialog.
 
 You can view a list of U2F supporting browsers at [caniuse.com/#feat=u2f](https://caniuse.com/#feat=u2f).
+
+### I see a really high transaction fee on the Ledger device, why?
+
+A reward claim transaction fee is interpreted as negative by the Ledger due to the output amounts being higher than the input amounts. The Ledger can't display negative amounts and so the value overflows which cause the alarmingly high transaction fee to be displayed.
+
+You can safely ignore this as long as you verify that the output amounts are what you are expecting.
 
 ## Credits
 
