@@ -26,6 +26,14 @@ If you think the fee is too high (or too low), then [please let us know](https:/
 
 The code is licensed under MIT to be the most beneficial to the community. This means you are not legally prevented from copying the code and removing the fee. If you decide to modify our code to remove the fee or use an alternate version with our fee removed, we will not be able to sustain development on this project or others within the Komodo ecosystem. If you like the work we are doing, please pay the fee to support future development.
 
+### I get an error signing or broadcasting my claim transaction, what went wrong?
+
+This is most likely because you are using an outdated version of the KMD app on your Ledger which doesn't support the overwinter hardfork.
+
+Make sure the KMD app and firmware on your Ledger are up to date before trying to claim your rewards.
+
+If you are sure your device is up to date then please [open an issue](https://github.com/atomiclabs/ledger-kmd-reward-claim/issues/new) with as much information as possible and we'll try and help.
+
 ## License
 
 MIT © Atomic Labs
