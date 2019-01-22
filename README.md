@@ -14,6 +14,11 @@
 
 ## FAQ
 
+- [Why do I have to pay a 5% fee?](#why-do-i-have-to-pay-a-5-fee)
+- [I get an error signing or broadcasting my claim transaction, what went wrong?](#i-get-an-error-signing-or-broadcasting-my-claim-transaction-what-went-wrong)
+- [Why do all my funds get sent back to a new address?](#why-do-all-my-funds-get-sent-back-to-a-new-address)
+- [The app is saying my browser is unsupported, can you support it?](#the-app-is-saying-my-browser-is-unsupported-can-you-support-it)
+
 ### Why do I have to pay a 5% fee?
 
 Before we created this app there was no way to claim KMD rewards on a Ledger hardware wallet. Community members have been repeatedly requesting this functionality but no solution was available. We tried to raise funding for this but were unsuccessful.
