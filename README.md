@@ -44,7 +44,7 @@ If you are sure your device is up to date then please [open an issue](https://gi
 
 ### Why do all my funds get sent back to a new address?
 
-We follow the same BIP44 standard that Ledger Live follows. We will send your reward claim to the next unused address in your account. This means all UTXOs in a single account are consolidated in a single transaction, which does have some privacy implications. However, in the Komodo ecosystem, most wallets just have a single address which is re-used, this is even worse for privacy. If you want privacy you should use a shielded address. Therefor, and after consulting with Komodo lead developer @jl777, we don't see this to be an issue.
+We follow the same BIP44 standard that Ledger Live follows. We will send your reward claim to the next unused address in your account. This means all UTXOs in a single account are consolidated in a single transaction, which does have some privacy implications. However, in the Komodo ecosystem, most wallets just have a single address which is re-used, this is even worse for privacy. If you want privacy you should use a shielded address. Therefore, after consulting with Komodo lead developer jl777, we don't see this to be an issue.
 
 To clarify, to preserve privacy across accounts, UTXOs in different accounts will **never** be mixed together, this is why you need to claim your rewards in each account separately. For increased anonymity, you should claim each account on different days to avoid time analysis linking the separate claims.
 
