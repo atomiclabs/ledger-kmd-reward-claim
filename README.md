@@ -34,6 +34,14 @@ Make sure the KMD app and firmware on your Ledger are up to date before trying t
 
 If you are sure your device is up to date then please [open an issue](https://github.com/atomiclabs/ledger-kmd-reward-claim/issues/new) with as much information as possible and we'll try and help.
 
+### Why do all my funds get sent back to a new address?
+
+We follow the same BIP44 standard that Ledger Live follows. We will send your reward claim to the next unused address in your account. This means all UTXOs in a single account are consolidated in a single transaction, which does have some privacy implications. However, in the Komodo ecosystem, most wallets just have a single address which is re-used, this is even worse for privacy. If you want privacy you should use a shielded address. Therefor, and after consulting with Komodo lead developer @jl777, we don't see this to be an issue.
+
+To clarify, to preserve privacy across accounts, UTXOs in different accounts will **never** be mixed together, this is why you need to claim your rewards in each account separately. For increased anonymity, you should claim each account on different days to avoid time analysis linking the separate claims.
+
+If consolidating the UTXOs is an issue for you and you'd like a solution that doesn't link addresses together, then [please let us know](https://github.com/atomiclabs/ledger-kmd-reward-claim/issues/3).
+
 ## License
 
 MIT © Atomic Labs
