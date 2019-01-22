@@ -17,7 +17,7 @@
 - [Why do I have to pay a 5% fee?](#why-do-i-have-to-pay-a-5-fee)
 - [I get an error signing or broadcasting my claim transaction, what went wrong?](#i-get-an-error-signing-or-broadcasting-my-claim-transaction-what-went-wrong)
 - [Why do all my funds get sent back to a new address?](#why-do-all-my-funds-get-sent-back-to-a-new-address)
-- [The app is saying my browser is unsupported, can you support it?](#the-app-is-saying-my-browser-is-unsupported-can-you-support-it)
+- [My browser is unsupported, can you support it?](#my-browser-is-unsupported-can-you-support-it)
 
 ### Why do I have to pay a 5% fee?
 
@@ -47,7 +47,7 @@ To clarify, to preserve privacy across accounts, UTXOs in different accounts wil
 
 If consolidating the UTXOs is an issue for you and you'd like a solution that doesn't link addresses together, then [please let us know](https://github.com/atomiclabs/ledger-kmd-reward-claim/issues/3).
 
-### The app is saying my browser is unsupported, can you support it?
+### My browser is unsupported, can you support it?
 
 We don't blacklist any specific browsers, we detect compatibility for the U2F API which is required to communicate with the Ledger. If the browser doesn't support the U2F API then we show an "Unsupported Browser" dialog.
 
