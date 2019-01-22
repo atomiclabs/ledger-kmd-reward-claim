@@ -12,6 +12,8 @@
 - Open the Ledger KMD Reward Claim app on your computer.
 - Click the "Check Rewards" button.
 
+If you encounter any problems, be sure to check the FAQ below. If you still can't resolve the problem then [open an issue](https://github.com/atomiclabs/ledger-kmd-reward-claim/issues/new) with as much information as possible and we'll try and help.
+
 ## FAQ
 
 - [Why do I have to pay a 5% fee?](#why-do-i-have-to-pay-a-5-fee)
