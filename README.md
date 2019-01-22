@@ -42,6 +42,12 @@ To clarify, to preserve privacy across accounts, UTXOs in different accounts wil
 
 If consolidating the UTXOs is an issue for you and you'd like a solution that doesn't link addresses together, then [please let us know](https://github.com/atomiclabs/ledger-kmd-reward-claim/issues/3).
 
+### The app is saying my browser is unsupported, can you support it?
+
+We don't blacklist any specific browsers, we detect compatibility for the U2F API which is required to communicate with the Ledger. If the browser doesn't support the U2F API then we show an "Unsupported Browser" dialog.
+
+You can view a list of U2F supporting browsers at [caniuse.com/#feat=u2f](https://caniuse.com/#feat=u2f).
+
 ## License
 
 MIT © Atomic Labs<br />
