@@ -1,7 +1,7 @@
 {
-  "main.css": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/main.49619113.chunk.css",
-  "main.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.94394f47.chunk.js",
-  "main.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.94394f47.chunk.js.map",
+  "main.css": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/main.bd82df79.chunk.css",
+  "main.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.2bcdaece.chunk.js",
+  "main.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.2bcdaece.chunk.js.map",
   "static/css/1.3326ea5d.chunk.css": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/1.3326ea5d.chunk.css",
   "static/js/1.345e9fda.chunk.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/1.345e9fda.chunk.js",
   "static/js/1.345e9fda.chunk.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/1.345e9fda.chunk.js.map",
@@ -9,9 +9,9 @@
   "runtime~main.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/runtime~main.0e3d023b.js.map",
   "static/media/all.css": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/media/fa-solid-900.a8684002.svg",
   "static/media/kmd.svg": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/media/kmd.35fa22e3.svg",
-  "static/css/main.49619113.chunk.css.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/main.49619113.chunk.css.map",
   "static/css/1.3326ea5d.chunk.css.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/1.3326ea5d.chunk.css.map",
+  "static/css/main.bd82df79.chunk.css.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/main.bd82df79.chunk.css.map",
   "index.html": "https://atomiclabs.github.io/ledger-kmd-reward-claim/index.html",
-  "precache-manifest.f53ef466e117d6db376fff9fe8591f99.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/precache-manifest.f53ef466e117d6db376fff9fe8591f99.js",
+  "precache-manifest.33e585558172a7a33b351020d025ac11.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/precache-manifest.33e585558172a7a33b351020d025ac11.js",
   "service-worker.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/service-worker.js"
 }
