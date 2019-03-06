@@ -2,7 +2,7 @@
 
 > Claim your KMD rewards on your Ledger device - [atomiclabs.github.io/ledger-kmd-reward-claim/](https://atomiclabs.github.io/ledger-kmd-reward-claim/)
 
-![](/screenshot.png)
+[![](/screenshot.png)](https://atomiclabs.github.io/ledger-kmd-reward-claim/)
 
 ## Usage
 
