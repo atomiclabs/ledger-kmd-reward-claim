@@ -4226,6 +4226,11 @@ get-caller-file@^1.0.1:
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.3.tgz#f978fa4c90d1dfe7ff2d6beda2a515e713bdcf4a"
   integrity sha512-3t6rVToeoZfYSGd8YoLFR2DJkiQrIiUrGcjvFX2mDw3bn6k2OtwHN0TNCLbBO+w8qTvimhDkv+LSscbJY1vE6w==
 
+get-komodo-rewards@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/get-komodo-rewards/-/get-komodo-rewards-1.0.1.tgz#ad0b115691f6ba33aec8babd04e166fd02d827ac"
+  integrity sha512-6CdFjKr4G/aZCFjPf2+0jXmHKRmJR8RCcZyBY20NK+AKWWG4zpktA5p4DbErafy/rY9otSswcKX80cxV9t9nfw==
+
 get-own-enumerable-property-symbols@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/get-own-enumerable-property-symbols/-/get-own-enumerable-property-symbols-3.0.0.tgz#b877b49a5c16aefac3655f2ed2ea5b684df8d203"

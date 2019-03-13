@@ -1,8 +1,8 @@
 import React from 'react';
+import getKomodoRewards from 'get-komodo-rewards';
 import ledger from './lib/ledger';
 import accountDiscovery from './lib/account-discovery';
 import blockchain from './lib/blockchain';
-import getKomodoRewards from './lib/get-komodo-rewards';
 import updateActionState from './lib/update-action-state';
 import {SERVICE_FEE_PERCENT, TX_FEE} from './constants';
 import ActionListModal from './ActionListModal';
