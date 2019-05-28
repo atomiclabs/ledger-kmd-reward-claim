@@ -44,6 +44,7 @@ class App extends React.Component {
             <>
               <div className="container content">
                 <h2>Claim your KMD rewards on your Ledger device.</h2>
+                <h4>As a special promotion, the ledger claim fee will be reduced from 5% of claimable amount to 0.5%.</h4>
                 <p>Make sure the KMD app and firmware on your Ledger are up to date, then connect your Ledger, open the KMD app, and click the "Check Rewards" button.</p>
               </div>
               <img className="ledger-graphic" src="ledger.svg" alt="Ledger Nano S"/>
