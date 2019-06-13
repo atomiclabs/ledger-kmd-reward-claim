@@ -66,10 +66,12 @@ class Account extends React.Component {
                       <td>{humanReadableSatoshis(rewards)} KMD</td>
                       <td>Rewards accrued</td>
                     </tr>
-                    <tr>
-                      <td>{humanReadableSatoshis(serviceFee)} KMD</td>
-                      <td>{SERVICE_FEE_PERCENT}% service fee</td>
-                    </tr>
+                    {(SERVICE_FEE_PERCENT !== 0 && serviceFee !== 0) && (
+                      <tr>
+                        <td>{humanReadableSatoshis(serviceFee)} KMD</td>
+                        <td>{SERVICE_FEE_PERCENT}% service fee</td>
+                      </tr>
+                    )}
                     <tr>
                       <td>{humanReadableSatoshis(TX_FEE)} KMD</td>
                       <td>Network transaction fee</td>
