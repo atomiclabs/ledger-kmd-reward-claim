@@ -1,7 +1,7 @@
 {
   "main.css": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/main.bd82df79.chunk.css",
-  "main.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.c163b24f.chunk.js",
-  "main.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.c163b24f.chunk.js.map",
+  "main.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.59caff56.chunk.js",
+  "main.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/main.59caff56.chunk.js.map",
   "static/css/1.3326ea5d.chunk.css": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/1.3326ea5d.chunk.css",
   "static/js/1.3915b089.chunk.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/1.3915b089.chunk.js",
   "static/js/1.3915b089.chunk.js.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/js/1.3915b089.chunk.js.map",
@@ -12,6 +12,6 @@
   "static/css/1.3326ea5d.chunk.css.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/1.3326ea5d.chunk.css.map",
   "static/css/main.bd82df79.chunk.css.map": "https://atomiclabs.github.io/ledger-kmd-reward-claim/static/css/main.bd82df79.chunk.css.map",
   "index.html": "https://atomiclabs.github.io/ledger-kmd-reward-claim/index.html",
-  "precache-manifest.b4cfcc5c862d6fc3d820bc8e6d6fdce3.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/precache-manifest.b4cfcc5c862d6fc3d820bc8e6d6fdce3.js",
+  "precache-manifest.6264420726d475d3653684fab8b80275.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/precache-manifest.6264420726d475d3653684fab8b80275.js",
   "service-worker.js": "https://atomiclabs.github.io/ledger-kmd-reward-claim/service-worker.js"
 }

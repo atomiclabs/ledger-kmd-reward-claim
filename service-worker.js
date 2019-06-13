@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "https://atomiclabs.github.io/ledger-kmd-reward-claim/precache-manifest.b4cfcc5c862d6fc3d820bc8e6d6fdce3.js"
+  "https://atomiclabs.github.io/ledger-kmd-reward-claim/precache-manifest.6264420726d475d3653684fab8b80275.js"
 );
 
 workbox.clientsClaim();
